@@ -1,0 +1,4673 @@
+# radiquant2 - Next Generation Radionic Platform
+
+## Project Overview
+
+Building **radiquant2** - a completely new, highly innovative radionic platform that incorporates all existing Radiquant/Morphic V1 functionality plus additional advanced features.
+
+**Approach:** Build from scratch (greenfield project) informed by existing codebase patterns and architecture.
+
+**Location:** `/srv/radiquant2/` (new directory on server root3091.ipp-srv.net)
+
+## Existing Radiquant/Morphic V1 Features (to be incorporated)
+
+Based on research of `/srv/radiquant/`:
+
+### Core Capabilities
+
+1. **NLS (Non-Linear System) Analysis** - Bioresonance field analysis
+2. **Resonance Analysis** - Morphogenetic field diagnostics
+3. **Harmonization Service** - Automated harmonization with job queue
+4. **Hardware Modulation** - Radionics hardware control via PySerial
+5. **Remedy Management** - Database of healing remedies (Heel, Nutramedix)
+6. **Rate Registry** - Frequency/rate management
+7. **Subgroup Service** - Organization of analysis groups
+8. **BAT Acute Programs** - 93 pre-configured therapy programs (bacteria, viruses, parasites, fungi, detox, hormones)
+9. **AI-powered Descriptions** - Ollama LLM integration for generating descriptions
+10. **Multi-tenant Support** - Tenant A/B architecture
+11. **WebSocket Realtime Updates** - Live analysis feedback
+12. **Hardware Abstraction Layer (HAL)** - For different radionics devices
+
+### Technical Stack (existing)
+
+- **Backend:** Python 3.11+ with FastAPI
+- **Databases:** PostgreSQL 15, Redis, SQLite (for various data stores)
+- **AI/LLM:** Ollama with GPU support (NVIDIA CUDA)
+- **Scientific Computing:** NumPy, SciPy, Matplotlib
+- **Deployment:** Docker + Kubernetes ready
+- **Hardware:** PySerial for radionics device communication
+
+## New Features for radiquant2
+
+### Innovation Areas Confirmed
+
+1. ✅ **AI/ML Enhancements** - Advanced predictions, pattern recognition, deeper analysis
+2. ✅ **Client Portal + Mobile Apps** - Patient/client access, iOS/Android support
+3. ✅ **Advanced Visualizations** - 3D field rendering, interactive dashboards, real-time charts
+4. ✅ **Additional Features** - To be specified
+
+### Specific New Features
+
+#### 1. AI/ML Enhancements
+
+- Advanced pattern recognition in resonance data
+- Predictive analytics for treatment outcomes
+- Machine learning models for diagnosis suggestions
+- Automated therapy protocol recommendations
+- [Details to be specified]
+
+#### 2. Client Portal + Mobile Apps
+
+- Patient/client self-service portal (web)
+- iOS mobile app
+- Android mobile app
+- Personal health dashboard
+- Session history and reports
+- [Details to be specified]
+
+#### 3. Advanced Visualizations
+
+- 3D morphogenetic field rendering
+- Interactive real-time dashboards
+- Customizable chart types
+- Export capabilities (PDF, images)
+- [Details to be specified]
+
+#### 4. Research Tools & Analytics
+
+- Data analytics engine for research studies
+- Statistical analysis tools
+- Cohort/group comparisons
+- Longitudinal study support
+- Export for scientific publications
+- [Details to be specified]
+
+#### 5. Integrations
+
+- Health APIs (FHIR, HL7)
+- EHR/EMR systems integration
+- Biofeedback device integrations
+- Third-party health platforms
+- [Details to be specified]
+
+## Architecture Design
+
+### Technology Stack
+
+#### Frontend Web (Professional Portal)
+
+- **Framework:** Next.js 14+ (React with SSR/SSG)
+- **UI Library:** shadcn/ui + Tailwind CSS (healing aesthetics, performance, SEO-optimized)
+- **State Management:** Zustand (lightweight, real-time ready, Next.js SSR compatible)
+- **3D Visualization:** React Three Fiber (Three.js with React integration, GPU-accelerated)
+- **Charts/Dashboards:** Recharts (React-native, scientific data visualization)
+
+#### Mobile Apps (Client Access)
+
+- **iOS:** Native App (Swift + SwiftUI)
+- **Android:** Native App (Kotlin + Jetpack Compose)
+- **API:** GraphQL (efficient data fetching) + WebSocket (real-time updates)
+
+#### Backend API
+
+- **Framework:** Python FastAPI (keeping existing pattern)
+- **Version:** Python 3.11+
+- **Additional services:** [To be specified]
+
+#### Databases
+
+- **Primary:** PostgreSQL 15
+- **Cache/Queue:** Redis
+- **Additional:** [To be specified]
+
+#### AI/ML Stack
+
+- **LLM:** Ollama with GPU (existing, for descriptions and AI assistance)
+- **ML Framework:** PyTorch (deep learning, pattern recognition) + scikit-learn (statistical analysis, research)
+- **GPU Acceleration:** CuPy-CUDA12x for NumPy operations + PyTorch CUDA (NVIDIA RTX 4000 20GB VRAM)
+
+#### Infrastructure
+
+- **Containerization:** Docker + Docker Compose
+- **Orchestration:** Kubernetes
+- **Reverse Proxy:** Traefik (with Let's Encrypt TLS)
+- **Monitoring:** Prometheus + Grafana + Loki (metrics, dashboards, logs - self-hosted for privacy)
+
+### Project Structure
+
+**Type:** Monorepo with Turborepo
+
+**Directory Structure:**
+
+```
+radiquant2/
+├── apps/
+│   ├── web/              - Next.js Web Application (Professional Portal)
+│   ├── api/              - Python FastAPI Backend
+│   ├── ios/              - iOS Native App (Swift + SwiftUI)
+│   └── android/          - Android Native App (Kotlin + Jetpack Compose)
+├── packages/
+│   ├── graphql/          - GraphQL schemas and generated types
+│   ├── ui/               - Shared UI components (shadcn/ui)
+│   ├── types/            - Shared TypeScript/Python types
+│   └── utils/            - Shared utilities
+├── infrastructure/
+│   ├── docker/           - Docker configurations
+│   ├── k8s/              - Kubernetes manifests
+│   └── terraform/        - Infrastructure as Code (optional)
+└── docs/                 - Documentation
+```
+
+**Benefits:**
+
+- Atomic commits across all components
+- Shared GraphQL schemas ensure type safety
+- Coordinated releases (critical for medical software)
+- Single CI/CD pipeline
+- Monorepo caching for fast builds
+
+### System Architecture
+
+#### Backend Architecture Pattern
+
+**Type:** Modular Monolith with Service Extraction Path
+
+**Rationale:**
+
+- Start with simplified deployment (single FastAPI application)
+- Clear module boundaries (Domain-Driven Design)
+- Can scale horizontally in Kubernetes
+- GPU resources efficiently shared
+- Individual modules can be extracted to microservices when needed
+
+#### Core Backend Modules
+
+**1. Analysis Engine Module**
+
+- NLS (Non-Linear System) analysis
+- Resonance field diagnostics
+- Morphogenetic field scanning
+- Real-time biofeedback processing
+
+**2. Harmonization Service Module**
+
+- Automated harmonization protocols
+- Job queue management (Redis)
+- Treatment plan generation
+- Progress tracking
+
+**3. AI/ML Service Module**
+
+- Pattern recognition (PyTorch)
+- Predictive analytics
+- Treatment outcome predictions
+- Automated diagnosis suggestions
+- GPU-accelerated computations
+
+**4. Hardware Interface Module**
+
+- Radionics device abstraction layer (HAL)
+- PySerial communication
+- Device discovery and configuration
+- Hardware modulation control
+
+**5. Remedy Management Module**
+
+- Remedy database (Heel, Nutramedix, custom)
+- Substance information
+- Dosage recommendations
+- Interaction checking
+
+**6. Research & Analytics Module**
+
+- Statistical analysis engine
+- Cohort management
+- Longitudinal studies
+- Data export (scientific publications)
+- Anonymization
+
+**7. Integration Hub Module**
+
+- FHIR/HL7 integration
+- EHR/EMR connectors
+- Third-party health APIs
+- Biofeedback device integrations
+
+**8. Tenant Management Module**
+
+- Multi-tenant isolation
+- User/practitioner management
+- Permissions and roles
+- Client/patient management
+
+**9. BAT Programs Module**
+
+- 93 existing acute programs (bacteria, viruses, parasites, fungi, detox, hormones)
+- Custom program builder
+- Protocol templates
+
+### System Architecture Diagram
+
+**Diagram:** `radiquant2_system_architecture.mermaid`
+**URL:** https://fly.storage.tigris.dev/bold-shadow-6070/assets/cmjbcix8000auimtm0yxj5gfk/radiquant2\_system\_architecture.mermaid
+
+**Key Architecture Decisions:**
+
+- **Client Layer:** Multi-platform (Web + Native Mobile)
+- **API Layer:** GraphQL (flexible queries) + WebSocket (real-time)
+- **Backend:** Modular Monolith with 9 core modules
+- **Data Layer:** PostgreSQL (primary) + Redis (cache/queue) + SQLite (local)
+- **AI/ML:** GPU-accelerated (Ollama LLM + PyTorch)
+- **Infrastructure:** Kubernetes-ready with Traefik + Monitoring stack
+
+## Detailed Feature Specifications
+
+### 1. AI/ML Enhancements
+
+#### 1.1 Pattern Recognition System
+
+**Purpose:** Identify recurring patterns in resonance data across patients/sessions
+
+**ML Model:**
+
+- **Type:** Deep Neural Network (PyTorch)
+- **Architecture:** Transformer-based for sequence analysis
+- **Input:** Time-series resonance data, NLS measurements
+- **Output:** Identified patterns with confidence scores
+- **Training:** Supervised + unsupervised (clustering)
+
+**Features:**
+
+- Automatic pattern detection in field scans
+- Similarity matching across patient cohorts
+- Anomaly detection for unusual resonance patterns
+- Pattern library building over time
+
+**GPU Utilization:**
+
+- PyTorch CUDA for training and inference
+- Batch processing on RTX 4000 (20GB VRAM)
+- Real-time inference during live sessions
+
+#### 1.2 Predictive Analytics Engine
+
+**Purpose:** Predict treatment outcomes based on historical data
+
+**Models:**
+
+- Treatment outcome prediction (success probability)
+- Timeline estimation (healing progression)
+- Remedy effectiveness prediction
+- Relapse risk assessment
+
+**ML Approach:**
+
+- Gradient Boosting (scikit-learn) for baseline
+- Deep Learning (PyTorch) for complex patterns
+- Ensemble methods for robust predictions
+
+**Data Sources:**
+
+- Historical treatment records
+- Patient demographics
+- Resonance analysis results
+- Remedy responses
+
+**Output:**
+
+- Success probability (0-100%)
+- Confidence intervals
+- Key influencing factors
+- Alternative protocol suggestions
+
+#### 1.3 Automated Diagnosis Suggestions
+
+**Purpose:** AI-assisted diagnosis based on resonance patterns
+
+**Workflow:**
+
+1. Analyze current resonance scan
+2. Compare with pattern library
+3. Match with known conditions
+4. Generate differential diagnosis list
+5. Provide confidence scores
+6. Suggest confirmatory tests
+
+**Safety:**
+
+- Always labeled as "AI-Assisted" (not final diagnosis)
+- Requires practitioner review and approval
+- Audit trail for all suggestions
+- Explainable AI (show reasoning)
+
+**LLM Integration:**
+
+- Ollama generates human-readable explanations
+- References medical literature
+- Multilingual support (German, English)
+
+#### 1.4 Therapy Protocol Recommendations
+
+**Purpose:** Suggest optimal therapy protocols based on analysis
+
+**Features:**
+
+- Analyze patient's current state
+- Match with successful historical protocols
+- Customize BAT programs for individual
+- Sequence optimization (order of treatments)
+- Dosage recommendations
+- Duration estimates
+
+**Learning:**
+
+- Continuously learns from outcomes
+- Adapts to practitioner preferences
+- Incorporates feedback loops
+
+**Integration:**
+
+- Hooks into Harmonization Service
+- Pre-populates treatment plans
+- Allows manual override
+
+[Additional AI/ML features to be specified]
+
+### 2. Client Portal & Mobile Apps
+
+#### 2.1 Web Portal (Next.js)
+
+##### Authentication & Onboarding
+
+**Authentication Methods:**
+
+- Email + Password
+- OAuth 2.0 (Google, Apple Sign-In)
+- Two-Factor Authentication (TOTP)
+- Biometric (on supported devices)
+
+**User Roles:**
+
+- **Practitioner:** Full access, manage clients, view all data
+- **Client/Patient:** Limited access, own data only, session history
+- **Researcher:** Analytics access, anonymized data
+- **Admin:** System configuration, tenant management
+
+**Onboarding Flow:**
+
+1. Account creation with email verification
+2. Profile setup (demographics, medical history)
+3. Consent forms (data privacy, treatment)
+4. Tutorial/guided tour
+5. First session booking
+
+##### Dashboard (Client View)
+
+**Sections:**
+
+- **Welcome Card:** Personalized greeting, upcoming sessions
+- **Health Status:** Current analysis summary (visual representation)
+- **Recent Sessions:** History with clickable details
+- **Active Treatments:** Ongoing harmonization protocols
+- **Recommendations:** AI-suggested actions
+- **Progress Tracking:** Charts showing improvement over time
+
+**Visualizations:**
+
+- 3D morphogenetic field (React Three Fiber)
+- Resonance charts (Recharts)
+- Timeline of treatments
+- Before/after comparisons
+
+##### Session History & Reports
+
+**Features:**
+
+- List of all past sessions (paginated, filterable)
+- Detailed session report per session:
+- Date, time, duration
+- Practitioner notes
+- Resonance analysis results (visual + text)
+- 3D field reconstruction
+- Remedies recommended
+- Homework/follow-up tasks
+- Export as PDF
+- Print-friendly view
+- Share with other practitioners (with permission)
+
+##### Communication Features
+
+- **Messaging:** Secure chat with practitioner
+- **Notifications:** Appointment reminders, protocol updates
+- **Video Calls:** Telemedicine integration (optional future)
+
+##### Personal Health Data
+
+- Medical history timeline
+- Medication list
+- Allergies and contraindications
+- Document uploads (lab results, imaging)
+- Integration with personal health devices
+
+#### 2.2 iOS App (Swift + SwiftUI)
+
+**Core Features:**
+
+- Native iOS design (SF Symbols, system fonts)
+- SwiftUI for modern, declarative UI
+- HealthKit integration (sync health data)
+- Apple Watch companion app (optional)
+- Push notifications
+- Offline mode (sync when online)
+- Face ID / Touch ID authentication
+
+**Unique iOS Features:**
+
+- Siri Shortcuts (e.g., "Check my health status")
+- Widgets (upcoming session, health summary)
+- App Clips (lightweight booking without install)
+- SharePlay (discuss reports with practitioner)
+
+**Architecture:**
+
+- SwiftUI for UI
+- Combine for reactive programming
+- Apollo iOS for GraphQL
+- Starscream for WebSocket
+- CoreData for local storage
+
+#### 2.3 Android App (Kotlin + Jetpack Compose)
+
+**Core Features:**
+
+- Material Design 3 (Material You)
+- Jetpack Compose for modern UI
+- Google Fit integration
+- Wear OS app (smartwatch)
+- Push notifications (FCM)
+- Offline mode
+- Biometric authentication
+
+**Unique Android Features:**
+
+- Home screen widgets
+- Quick Settings tiles
+- Google Assistant actions
+- Adaptive icons
+- Picture-in-Picture for video calls
+
+**Architecture:**
+
+- Jetpack Compose for UI
+- Kotlin Coroutines + Flow
+- Apollo Android for GraphQL
+- OkHttp for WebSocket
+- Room for local storage
+
+#### 2.4 Shared Mobile Features
+
+**Session Booking (Basic):**
+
+- Simple calendar view of practitioner availability
+- Direct booking with confirmation
+- Email reminders (24h and 1h before)
+- Basic rescheduling (with practitioner approval)
+- Note: Advanced features (recurring appointments, waitlists, payment integration) are future enhancements
+
+**Real-time Session Monitoring:**
+
+- During active session, live updates via WebSocket
+- See analysis progress in real-time
+- Receive instant results
+- Chat with practitioner during session
+
+**Document Scanner:**
+
+- Scan medical documents with camera
+- OCR for text extraction
+- Upload to profile
+
+**Multi-language:**
+
+- German (primary)
+- English
+- Additional languages via configuration
+
+[Additional portal/mobile features to be specified]
+
+### 3. Advanced Visualizations
+
+#### 3.1 3D Morphogenetic Field Rendering
+
+**Technology:** React Three Fiber (Three.js)
+
+**Visual Representation:**
+
+- 3D field rendered as volumetric data
+- Color-coded by resonance strength:
+- Blue/Cyan: Weak resonance
+- Green/Yellow: Medium resonance
+- Orange/Red: Strong resonance
+- Interactive rotation, zoom, pan
+- Animation of field changes over time
+- Cross-sections and slicing
+- Hotspot highlighting (areas of concern)
+
+**Interaction:**
+
+- Click on regions for detailed info
+- Toggle layers (physical, emotional, mental)
+- Compare multiple sessions side-by-side
+- Time-lapse animation
+
+**Performance:**
+
+- GPU-accelerated rendering
+- LOD (Level of Detail) for performance
+- WebGL 2.0 optimizations
+- Responsive on mobile (simplified rendering)
+
+#### 3.2 Interactive Dashboards
+
+**Practitioner Dashboard:**
+
+- **Overview:** Active clients, sessions today, pending reviews
+- **Client Management:** List with filters, search, tags
+- **Analytics:** Practice statistics, success rates, revenue
+- **Device Status:** Connected radionics hardware status
+- **Job Queue:** Harmonization jobs in progress
+
+**Research Dashboard:**
+
+- **Studies:** Active research studies, enrollment status
+- **Cohorts:** Defined cohorts with statistics
+- **Comparisons:** Side-by-side cohort analysis
+- **Exports:** Data export for external analysis
+- **Visualizations:** Statistical charts, distribution plots
+
+**Admin Dashboard:**
+
+- **Tenant Overview:** All tenants, usage statistics
+- **System Health:** Server metrics, database status, API latency
+- **Monitoring:** Grafana embeds, alert status
+- **User Management:** All users, role assignments
+- **Logs:** Audit logs, security events
+
+#### 3.3 Chart Types (Recharts)
+
+**Available Charts:**
+
+- **Line Charts:** Trends over time (resonance levels, health scores)
+- **Bar Charts:** Comparisons (remedy effectiveness, cohort differences)
+- **Area Charts:** Cumulative data (treatment progress)
+- **Radar Charts:** Multi-dimensional analysis (chakra balance, organ systems)
+- **Scatter Plots:** Correlations (symptoms vs. resonance)
+- **Heatmaps:** Pattern intensity (body regions, time of day)
+- **Pie/Donut Charts:** Distributions (remedy categories, condition types)
+
+**Interactivity:**
+
+- Hover tooltips with detailed data
+- Click to drill down
+- Zoom and pan for time-series
+- Export as PNG/SVG
+- Customizable color schemes (healing aesthetics)
+
+#### 3.4 Report Generation & Export
+
+**PDF Reports:**
+
+- Professional template with branding
+- Session summary with visuals
+- 3D field snapshots
+- Charts and graphs
+- Practitioner notes
+- Treatment recommendations
+- QR code for online version
+
+**Export Formats:**
+
+- PDF (for printing, sharing)
+- PNG/JPG (images of charts, 3D renders)
+- CSV (raw data for external analysis)
+- JSON (machine-readable data)
+- FHIR-compliant XML (for EHR integration)
+
+[Additional visualization features to be specified]
+
+### 4. Research Tools & Analytics
+
+#### 4.1 Data Analytics Engine
+
+**Statistical Analysis Tools:**
+
+- **Descriptive Statistics:** Mean, median, std dev, distributions
+- **Inferential Statistics:** T-tests, ANOVA, chi-square
+- **Correlation Analysis:** Pearson, Spearman correlations
+- **Regression:** Linear, logistic, multivariate
+- **Survival Analysis:** Kaplan-Meier, Cox regression
+- **Machine Learning:** Clustering, classification, dimensionality reduction
+
+**Implementation:**
+
+- scikit-learn for ML algorithms
+- scipy.stats for statistical tests
+- pandas for data manipulation
+- statsmodels for advanced statistics
+
+**User Interface:**
+
+- Point-and-click analysis builder
+- Variable selection from database
+- Auto-generated code (Python) for reproducibility
+- Results visualization
+- Interpretation assistance (Ollama LLM)
+
+#### 4.2 Cohort Management
+
+**Features:**
+
+- **Define Cohorts:** By demographics, conditions, treatments, dates
+- **Inclusion/Exclusion Criteria:** Complex rule builder
+- **Dynamic Cohorts:** Auto-update as new data arrives
+- **Cohort Comparisons:** Side-by-side statistics
+- **Enrollment Tracking:** For prospective studies
+
+**Use Cases:**
+
+- Compare treatment outcomes across cohorts
+- Identify best responders to specific protocols
+- Track long-term outcomes
+- Validate new approaches
+
+**Privacy:**
+
+- Automatic data anonymization
+- Aggregate statistics only (no individual data in research views)
+- Configurable de-identification rules
+- Ethics compliance (GDPR, HIPAA-like standards)
+
+#### 4.3 Longitudinal Studies
+
+**Features:**
+
+- **Timeline View:** Patient journey over months/years
+- **Milestone Tracking:** Key events, treatment changes
+- **Trajectory Analysis:** Progression patterns
+- **Dropout Management:** Track and analyze discontinuations
+- **Follow-up Scheduling:** Automated reminders for study visits
+
+**Visualizations:**
+
+- Spaghetti plots (individual trajectories)
+- Growth curves
+- Event timelines
+- Trend analysis
+
+#### 4.4 Scientific Publication Support
+
+**Data Export:**
+
+- CSV/Excel for statistical software (SPSS, R, SAS)
+- Anonymized datasets
+- Metadata/codebook generation
+- Variable descriptions
+
+**Visualizations for Papers:**
+
+- Publication-quality charts (high DPI)
+- Customizable styling (journal requirements)
+- Forest plots (meta-analysis)
+- CONSORT flow diagrams
+
+**Reporting:**
+
+- Summary statistics tables
+- Automated reporting templates
+- LaTeX/Markdown output
+- Citation management
+
+[Additional research features to be specified]
+
+### 5. Integrations
+
+#### 5.1 FHIR/HL7 Integration
+
+**FHIR Resources Supported:**
+
+- **Patient:** Demographics, identifiers
+- **Observation:** Resonance measurements, vitals
+- **Condition:** Diagnoses, problems
+- **MedicationStatement:** Current medications
+- **Procedure:** Treatments performed
+- **DiagnosticReport:** Analysis reports
+- **DocumentReference:** Uploaded documents
+
+**Endpoints:**
+
+- FHIR REST API server (read/write)
+- FHIR search capabilities
+- Bulk data export ($export)
+- SMART on FHIR authentication
+
+**Use Cases:**
+
+- Import patient data from EHR
+- Export analysis results to EHR
+- Bi-directional synchronization
+- Standards-compliant data exchange
+
+#### 5.2 EHR/EMR Systems
+
+**Supported Systems:**
+
+- **Epic:** MyChart integration, FHIR APIs
+- **Cerner:** PowerChart integration
+- **Allscripts:** Touchworks APIs
+- **Meditech:** Integration via HL7
+- **Custom/Regional:** Configurable connectors
+
+**Integration Methods:**
+
+- REST APIs (where available)
+- HL7 v2 messages (legacy systems)
+- FHIR APIs (modern systems)
+- SFTP file exchange (batch)
+- Direct database integration (with caution)
+
+**Data Synchronization:**
+
+- Patient demographics (bi-directional)
+- Appointments (import)
+- Lab results (import)
+- Treatment notes (export)
+- Imaging orders (import)
+
+#### 5.3 Biofeedback Devices
+
+**Device Categories:**
+
+- **Heart Rate Variability (HRV):** HeartMath, Polar
+- **EEG:** Muse, Emotiv
+- **GSR (Galvanic Skin Response):** Various sensors
+- **Radionics Hardware:** Existing PySerial devices
+- **Wearables:** Apple Watch, Fitbit, Garmin (via HealthKit/Google Fit)
+
+**Integration Approach:**
+
+- **Bluetooth LE:** Direct connection for supported devices
+- **Cloud APIs:** For devices with web APIs
+- **Serial/USB:** For radionics hardware (PySerial)
+- **Health Platform APIs:** HealthKit (iOS), Google Fit (Android)
+
+**Data Flow:**
+
+- Real-time data streaming during sessions
+- Historical data import
+- Combined analysis (resonance + biofeedback)
+- AI/ML training on combined datasets
+
+#### 5.4 Third-Party Health Platforms
+
+**Platforms:**
+
+- **Apple HealthKit:** Vitals, activity, sleep
+- **Google Fit:** Activity, vitals
+- **Fitbit API:** Steps, heart rate, sleep
+- **Oura Ring:** Sleep, readiness, HRV
+- **Withings:** Blood pressure, weight, sleep
+- **23andMe:** Genetic data (with consent)
+
+**Data Types:**
+
+- Vital signs (heart rate, blood pressure, SpO2)
+- Activity (steps, exercise)
+- Sleep data
+- Nutrition
+- Lab results
+- Genetic markers
+
+**Use Cases:**
+
+- Holistic health view
+- Correlate activity with resonance patterns
+- Track lifestyle factors
+- AI/ML feature enrichment
+
+[Additional integration features to be specified]
+
+## Implementation Specification
+
+### Database Schema Design
+
+#### Schema Overview
+
+**Primary Database:** PostgreSQL 15
+
+**Design Principles:**
+
+- Normalized schema (3NF minimum)
+- Full audit trail (comprehensive history tracking)
+- Multi-tenant data isolation (tenant\_id in all tables)
+- Soft deletes (deleted\_at timestamps, not hard deletes)
+- UUID primary keys (for distributed systems, security)
+- Timestamps on all entities (created\_at, updated\_at)
+
+#### Core Tables
+
+##### 1. Tenants & Users
+
+**tenants**
+
+- `id` (UUID, PK)
+- `name` (VARCHAR, unique)
+- `slug` (VARCHAR, unique, for URLs)
+- `settings` (JSONB, tenant-specific configuration)
+- `status` (ENUM: active, suspended, trial)
+- `subscription_tier` (ENUM: basic, professional, enterprise)
+- `created_at`, `updated_at`, `deleted_at`
+
+**users**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `email` (VARCHAR, unique per tenant)
+- `password_hash` (VARCHAR, bcrypt)
+- `role` (ENUM: admin, practitioner, client, researcher)
+- `first_name`, `last_name` (VARCHAR)
+- `phone` (VARCHAR, nullable)
+- `two_factor_enabled` (BOOLEAN, default false)
+- `two_factor_secret` (VARCHAR, encrypted, nullable)
+- `email_verified_at` (TIMESTAMP, nullable)
+- `last_login_at` (TIMESTAMP, nullable)
+- `status` (ENUM: active, inactive, locked)
+- `created_at`, `updated_at`, `deleted_at`
+
+**oauth\_connections**
+
+- `id` (UUID, PK)
+- `user_id` (UUID, FK → users)
+- `provider` (ENUM: google, apple, github)
+- `provider_user_id` (VARCHAR)
+- `access_token` (TEXT, encrypted)
+- `refresh_token` (TEXT, encrypted, nullable)
+- `expires_at` (TIMESTAMP, nullable)
+- `created_at`, `updated_at`
+
+##### 2. Patients & Sessions
+
+**patients** (clients receiving treatment)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `user_id` (UUID, FK → users, nullable - some may not have portal access)
+- `practitioner_id` (UUID, FK → users, primary practitioner)
+- `first_name`, `last_name` (VARCHAR)
+- `date_of_birth` (DATE)
+- `gender` (ENUM: male, female, other, prefer\_not\_to\_say)
+- `email`, `phone` (VARCHAR)
+- `address` (JSONB: street, city, postal\_code, country)
+- `medical_history` (TEXT, encrypted)
+- `allergies` (TEXT[], array of allergy strings)
+- `current_medications` (JSONB, array of medication objects)
+- `emergency_contact` (JSONB: name, phone, relationship)
+- `consent_forms_signed` (JSONB, array of consent objects with timestamps)
+- `notes` (TEXT, practitioner notes)
+- `created_at`, `updated_at`, `deleted_at`
+
+**sessions** (treatment sessions)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `patient_id` (UUID, FK → patients)
+- `practitioner_id` (UUID, FK → users)
+- `scheduled_at` (TIMESTAMP)
+- `started_at` (TIMESTAMP, nullable)
+- `completed_at` (TIMESTAMP, nullable)
+- `duration_minutes` (INTEGER)
+- `session_type` (ENUM: initial, follow\_up, remote, in\_person)
+- `status` (ENUM: scheduled, in\_progress, completed, cancelled, no\_show)
+- `cancellation_reason` (TEXT, nullable)
+- `notes` (TEXT, practitioner notes)
+- `chief_complaint` (TEXT)
+- `subjective_assessment` (TEXT)
+- `objective_findings` (TEXT)
+- `created_at`, `updated_at`, `deleted_at`
+
+**appointments** (future sessions, booking)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `patient_id` (UUID, FK → patients)
+- `practitioner_id` (UUID, FK → users)
+- `session_id` (UUID, FK → sessions, nullable - linked after session completed)
+- `scheduled_at` (TIMESTAMP)
+- `duration_minutes` (INTEGER, default 60)
+- `status` (ENUM: pending, confirmed, cancelled, completed)
+- `reminder_sent_24h` (BOOLEAN, default false)
+- `reminder_sent_1h` (BOOLEAN, default false)
+- `notes` (TEXT, nullable)
+- `created_at`, `updated_at`, `deleted_at`
+
+##### 3. Analysis & Resonance Data
+
+**resonance\_analyses**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `session_id` (UUID, FK → sessions)
+- `patient_id` (UUID, FK → patients)
+- `analysis_type` (ENUM: nls, morphogenetic\_field, multiplex\_scan, custom)
+- `started_at` (TIMESTAMP)
+- `completed_at` (TIMESTAMP, nullable)
+- `status` (ENUM: pending, in\_progress, completed, failed)
+- `raw_data` (JSONB, compressed resonance measurements)
+- `processed_data` (JSONB, analyzed results)
+- `field_visualization_data` (JSONB, 3D field coordinates and values)
+- `anomalies_detected` (JSONB, array of anomaly objects)
+- `confidence_score` (FLOAT, 0.0-1.0)
+- `hardware_device_id` (VARCHAR, nullable)
+- `created_at`, `updated_at`
+
+**nls\_measurements** (specific NLS data)
+
+- `id` (UUID, PK)
+- `resonance_analysis_id` (UUID, FK → resonance\_analyses)
+- `body_system` (VARCHAR, e.g., "cardiovascular", "digestive")
+- `organ` (VARCHAR, e.g., "heart", "liver")
+- `frequency` (FLOAT, Hz)
+- `resonance_strength` (FLOAT, 0.0-1.0)
+- `deviation_from_normal` (FLOAT)
+- `interpretation` (TEXT, AI-generated)
+- `created_at`
+
+**morphogenetic\_fields** (3D field data)
+
+- `id` (UUID, PK)
+- `resonance_analysis_id` (UUID, FK → resonance\_analyses)
+- `layer_type` (ENUM: physical, emotional, mental, spiritual)
+- `field_data` (BYTEA, binary 3D grid data, compressed)
+- `field_metadata` (JSONB, dimensions, resolution, units)
+- `hotspots` (JSONB, array of {x, y, z, intensity})
+- `created_at`
+
+##### 4. AI/ML Data
+
+**pattern\_library**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants, nullable - global patterns)
+- `pattern_name` (VARCHAR)
+- `pattern_type` (ENUM: condition, remedy\_response, treatment\_outcome)
+- `feature_vector` (FLOAT[], high-dimensional feature representation)
+- `associated_condition` (VARCHAR, nullable)
+- `frequency_of_occurrence` (INTEGER)
+- `confidence_score` (FLOAT, 0.0-1.0)
+- `created_from_analyses` (UUID[], array of resonance\_analysis\_ids)
+- `metadata` (JSONB)
+- `created_at`, `updated_at`
+
+**ml\_predictions**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `patient_id` (UUID, FK → patients)
+- `session_id` (UUID, FK → sessions, nullable)
+- `prediction_type` (ENUM: outcome, timeline, remedy\_effectiveness, relapse\_risk)
+- `model_name` (VARCHAR)
+- `model_version` (VARCHAR)
+- `input_features` (JSONB)
+- `prediction_value` (JSONB, varies by type)
+- `confidence_score` (FLOAT, 0.0-1.0)
+- `explanation` (TEXT, AI-generated explanation)
+- `influencing_factors` (JSONB, array of factor objects)
+- `actual_outcome` (JSONB, nullable - filled in later for model validation)
+- `created_at`
+
+**ai\_suggestions** (diagnosis and therapy suggestions)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `session_id` (UUID, FK → sessions)
+- `resonance_analysis_id` (UUID, FK → resonance\_analyses)
+- `suggestion_type` (ENUM: diagnosis, therapy\_protocol, remedy, follow\_up)
+- `suggestion_content` (JSONB, structured suggestion)
+- `confidence_score` (FLOAT, 0.0-1.0)
+- `reasoning` (TEXT, explainable AI)
+- `references` (JSONB, array of reference objects)
+- `practitioner_action` (ENUM: accepted, rejected, modified, pending)
+- `practitioner_feedback` (TEXT, nullable)
+- `created_at`, `updated_at`
+
+##### 5. Harmonization & Treatments
+
+**harmonization\_jobs**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `patient_id` (UUID, FK → patients)
+- `session_id` (UUID, FK → sessions, nullable)
+- `protocol_id` (UUID, FK → therapy\_protocols)
+- `status` (ENUM: queued, in\_progress, completed, failed, cancelled)
+- `priority` (INTEGER, 0-10, default 5)
+- `started_at` (TIMESTAMP, nullable)
+- `completed_at` (TIMESTAMP, nullable)
+- `progress_percentage` (INTEGER, 0-100)
+- `hardware_device_id` (VARCHAR, nullable)
+- `job_parameters` (JSONB, frequencies, durations, modulations)
+- `results` (JSONB, job outcome data)
+- `error_message` (TEXT, nullable)
+- `created_at`, `updated_at`
+
+**therapy\_protocols** (treatment plans)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `name` (VARCHAR)
+- `protocol_type` (ENUM: bat\_program, custom, ai\_generated, template)
+- `bat_program_id` (UUID, FK → bat\_programs, nullable)
+- `description` (TEXT)
+- `steps` (JSONB, array of step objects with order, duration, parameters)
+- `typical_duration_minutes` (INTEGER)
+- `indications` (TEXT[])
+- `contraindications` (TEXT[])
+- `is_template` (BOOLEAN, default false)
+- `created_by_user_id` (UUID, FK → users)
+- `usage_count` (INTEGER, default 0)
+- `success_rate` (FLOAT, 0.0-1.0, nullable)
+- `created_at`, `updated_at`, `deleted_at`
+
+**patient\_protocols** (protocols assigned to patients)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `patient_id` (UUID, FK → patients)
+- `therapy_protocol_id` (UUID, FK → therapy\_protocols)
+- `prescribed_by_user_id` (UUID, FK → users)
+- `prescribed_at` (TIMESTAMP)
+- `start_date` (DATE)
+- `end_date` (DATE, nullable)
+- `frequency` (VARCHAR, e.g., "daily", "twice weekly")
+- `status` (ENUM: active, completed, discontinued, on\_hold)
+- `adherence_percentage` (FLOAT, 0.0-100.0)
+- `notes` (TEXT)
+- `created_at`, `updated_at`
+
+##### 6. Remedies & BAT Programs
+
+**remedies**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants, nullable - global remedies)
+- `name` (VARCHAR)
+- `brand` (VARCHAR, e.g., "Heel", "Nutramedix")
+- `category` (VARCHAR, e.g., "Homeopathic", "Herbal", "Mineral")
+- `description` (TEXT)
+- `indications` (TEXT[])
+- `contraindications` (TEXT[])
+- `interactions` (JSONB, array of interaction objects)
+- `dosage_forms` (JSONB, array: tablets, drops, injections)
+- `typical_dosage` (VARCHAR)
+- `ingredients` (JSONB, array of ingredient objects)
+- `potency` (VARCHAR, for homeopathics, e.g., "D6", "C30")
+- `availability` (BOOLEAN, default true)
+- `external_id` (VARCHAR, nullable, for imports from Heel/Nutramedix)
+- `created_at`, `updated_at`, `deleted_at`
+
+**remedy\_prescriptions**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `patient_id` (UUID, FK → patients)
+- `session_id` (UUID, FK → sessions, nullable)
+- `remedy_id` (UUID, FK → remedies)
+- `prescribed_by_user_id` (UUID, FK → users)
+- `dosage` (VARCHAR)
+- `frequency` (VARCHAR, e.g., "3x daily")
+- `duration_days` (INTEGER)
+- `start_date` (DATE)
+- `end_date` (DATE, nullable)
+- `reason` (TEXT)
+- `status` (ENUM: active, completed, discontinued)
+- `patient_response` (TEXT, nullable, patient feedback)
+- `created_at`, `updated_at`
+
+**bat\_programs** (93 existing acute programs)
+
+- `id` (UUID, PK)
+- `name` (VARCHAR)
+- `category` (ENUM: bacteria, virus, parasite, fungus, detox, hormone, acute\_therapy)
+- `subcategory` (VARCHAR, e.g., "liver\_support", "herpes\_simplex")
+- `description` (TEXT)
+- `frequencies` (JSONB, array of frequency objects)
+- `duration_minutes` (INTEGER)
+- `sequence` (JSONB, ordered steps)
+- `indications` (TEXT[])
+- `contraindications` (TEXT[])
+- `success_rate` (FLOAT, 0.0-1.0, nullable)
+- `usage_count` (INTEGER, default 0)
+- `source` (VARCHAR, "radiquant\_v1" for migrated programs)
+- `created_at`, `updated_at`, `deleted_at`
+
+##### 7. Research & Analytics
+
+**research\_studies**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `name` (VARCHAR)
+- `description` (TEXT)
+- `study_type` (ENUM: observational, interventional, longitudinal, cohort)
+- `principal_investigator_id` (UUID, FK → users)
+- `start_date` (DATE)
+- `end_date` (DATE, nullable)
+- `status` (ENUM: planning, enrolling, active, completed, terminated)
+- `ethics_approval` (JSONB, approval details)
+- `protocol` (TEXT, study protocol)
+- `inclusion_criteria` (JSONB, structured rules)
+- `exclusion_criteria` (JSONB, structured rules)
+- `target_enrollment` (INTEGER)
+- `created_at`, `updated_at`
+
+**study\_cohorts**
+
+- `id` (UUID, PK)
+- `study_id` (UUID, FK → research\_studies)
+- `name` (VARCHAR)
+- `description` (TEXT)
+- `cohort_type` (ENUM: intervention, control, comparison)
+- `selection_rules` (JSONB, complex query rules)
+- `is_dynamic` (BOOLEAN, auto-update as data changes)
+- `created_at`, `updated_at`
+
+**cohort\_memberships**
+
+- `id` (UUID, PK)
+- `cohort_id` (UUID, FK → study\_cohorts)
+- `patient_id` (UUID, FK → patients)
+- `enrolled_at` (TIMESTAMP)
+- `status` (ENUM: enrolled, completed, withdrawn, excluded)
+- `withdrawal_reason` (TEXT, nullable)
+- `created_at`, `updated_at`
+
+**research\_data\_exports**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `study_id` (UUID, FK → research\_studies, nullable)
+- `requested_by_user_id` (UUID, FK → users)
+- `export_type` (ENUM: csv, json, fhir, spss)
+- `anonymization_level` (ENUM: none, basic, full)
+- `query_parameters` (JSONB, what data was requested)
+- `file_path` (VARCHAR, path to generated file)
+- `file_size_bytes` (BIGINT)
+- `status` (ENUM: pending, processing, completed, failed)
+- `expires_at` (TIMESTAMP, auto-delete after period)
+- `download_count` (INTEGER, default 0)
+- `created_at`, `updated_at`
+
+##### 8. Integrations
+
+**external\_integrations**
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `integration_type` (ENUM: fhir, ehr, hl7, biofeedback\_device, health\_platform)
+- `provider_name` (VARCHAR, e.g., "Epic", "Apple HealthKit")
+- `configuration` (JSONB, encrypted, API keys, endpoints)
+- `status` (ENUM: active, inactive, error)
+- `last_sync_at` (TIMESTAMP, nullable)
+- `last_error` (TEXT, nullable)
+- `created_at`, `updated_at`
+
+**integration\_sync\_log**
+
+- `id` (UUID, PK)
+- `integration_id` (UUID, FK → external\_integrations)
+- `sync_type` (ENUM: import, export, bidirectional)
+- `resource_type` (VARCHAR, e.g., "Patient", "Observation")
+- `started_at` (TIMESTAMP)
+- `completed_at` (TIMESTAMP, nullable)
+- `status` (ENUM: success, partial, failed)
+- `records_processed` (INTEGER)
+- `records_succeeded` (INTEGER)
+- `records_failed` (INTEGER)
+- `error_details` (JSONB, array of error objects)
+- `created_at`
+
+**device\_connections** (radionics and biofeedback devices)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `device_type` (ENUM: radionics, hrv, eeg, gsr, wearable)
+- `device_model` (VARCHAR)
+- `device_identifier` (VARCHAR, serial number or MAC address)
+- `connection_type` (ENUM: serial, usb, bluetooth, wifi, cloud\_api)
+- `connection_parameters` (JSONB, port, baudrate, API keys)
+- `status` (ENUM: connected, disconnected, error)
+- `last_seen_at` (TIMESTAMP, nullable)
+- `firmware_version` (VARCHAR, nullable)
+- `assigned_to_user_id` (UUID, FK → users, nullable)
+- `created_at`, `updated_at`
+
+##### 9. Audit & Security
+
+**audit\_log** (comprehensive audit trail)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants, nullable)
+- `user_id` (UUID, FK → users, nullable)
+- `action` (ENUM: create, read, update, delete, login, logout, export, print)
+- `entity_type` (VARCHAR, table name)
+- `entity_id` (UUID, the record affected)
+- `old_values` (JSONB, state before change, nullable)
+- `new_values` (JSONB, state after change, nullable)
+- `ip_address` (INET)
+- `user_agent` (TEXT)
+- `request_id` (UUID, for tracing)
+- `created_at` (TIMESTAMP, immutable - never updated)
+
+**Index Note:** All audit\_log entries are append-only, never updated or deleted
+
+**security\_events**
+
+- `id` (UUID, PK)
+- `event_type` (ENUM: failed\_login, suspicious\_access, data\_breach\_attempt, unauthorized\_api\_call)
+- `severity` (ENUM: low, medium, high, critical)
+- `user_id` (UUID, FK → users, nullable)
+- `ip_address` (INET)
+- `description` (TEXT)
+- `metadata` (JSONB)
+- `resolved` (BOOLEAN, default false)
+- `resolved_at` (TIMESTAMP, nullable)
+- `resolved_by_user_id` (UUID, FK → users, nullable)
+- `created_at`
+
+##### 10. Notifications & Communication
+
+**notifications**
+
+- `id` (UUID, PK)
+- `user_id` (UUID, FK → users)
+- `type` (ENUM: appointment\_reminder, message, system, protocol\_update, report\_ready)
+- `title` (VARCHAR)
+- `message` (TEXT)
+- `link_url` (VARCHAR, nullable)
+- `read_at` (TIMESTAMP, nullable)
+- `sent_via_email` (BOOLEAN, default false)
+- `sent_via_push` (BOOLEAN, default false)
+- `created_at`
+
+**messages** (secure practitioner-patient messaging)
+
+- `id` (UUID, PK)
+- `tenant_id` (UUID, FK → tenants)
+- `conversation_id` (UUID, groups messages into threads)
+- `sender_user_id` (UUID, FK → users)
+- `recipient_user_id` (UUID, FK → users)
+- `subject` (VARCHAR, nullable)
+- `body` (TEXT, encrypted)
+- `attachments` (JSONB, array of attachment metadata)
+- `read_at` (TIMESTAMP, nullable)
+- `created_at`
+
+#### Additional Database Components
+
+**Views:**
+
+- `active_patients_view` - Patients with recent activity
+- `upcoming_appointments_view` - Next 7 days appointments
+- `practitioner_dashboard_stats` - Aggregated statistics per practitioner
+- `research_anonymized_data` - Anonymized data for research queries
+
+**Stored Procedures:**
+
+- `anonymize_patient_data(patient_id, level)` - De-identify patient data
+- `calculate_adherence(patient_id, protocol_id)` - Calculate protocol adherence
+- `archive_old_sessions(cutoff_date)` - Move old data to archive tables
+
+**Triggers:**
+
+- `audit_trail_trigger` - Automatically log changes to audit\_log
+- `soft_delete_trigger` - Handle cascading soft deletes
+- `updated_at_trigger` - Auto-update updated\_at timestamps
+
+**Indexes (Critical for Performance):**
+
+- All foreign keys
+- `tenant_id` on all multi-tenant tables
+- `created_at`, `updated_at` on frequently queried tables
+- `email` on users (unique per tenant)
+- `scheduled_at` on appointments
+- GiST index on `audit_log(created_at)` for time-range queries
+- GIN index on JSONB columns for JSON queries
+
+#### Data Retention & Archival
+
+**Policy:**
+
+- **Active Data:** Last 2 years in primary tables
+- **Archived Data:** 2-7 years in archive tables (same schema, separate tablespace)
+- **Deleted Data:** 7+ years, fully anonymized or purged per GDPR
+
+**Archive Tables:** (same schema as primary, prefixed with `archive_`)
+
+- `archive_sessions`
+- `archive_resonance_analyses`
+- `archive_harmonization_jobs`
+- etc.
+
+**Archival Process:**
+
+- Automated monthly job
+- Moves sessions older than 2 years
+- Maintains referential integrity
+- Audit log entries never archived (compliance)
+
+### Security & Compliance Specification
+
+#### Compliance Standards
+
+**Target Compliance:** GDPR (mandatory) + HIPAA-like standards (best practice)
+
+**Key Requirements:**
+
+- GDPR: Right to access, right to erasure, data portability, breach notification
+- HIPAA-like: PHI protection, access controls, audit trails, encryption
+- Data residency: EU servers for EU patients (already on root3091.ipp-srv.net in Germany)
+
+#### Encryption Strategy (Defense-in-Depth)
+
+##### 1. Encryption In-Transit (TLS 1.3)
+
+**Implementation:**
+
+- All API endpoints: HTTPS only (no HTTP)
+- WebSocket connections: WSS (secure WebSocket)
+- TLS 1.3 minimum (Traefik configuration)
+- Certificate: Let's Encrypt (auto-renewal)
+- HSTS (HTTP Strict Transport Security) headers
+- Perfect Forward Secrecy (PFS)
+
+**Traefik Configuration:**
+
+```yaml
+# infrastructure/docker/traefik.yml
+entryPoints:
+  web:
+    address: ":80"
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: ":443"
+    http:
+      tls:
+        minVersion: VersionTLS13
+        certResolver: letsencrypt
+```
+
+##### 2. Encryption At-Rest (Database-Level)
+
+**PostgreSQL Native Encryption:**
+
+- Tablespace-level encryption using pgcrypto
+- Full database encryption for `/srv/radiquant2/data`
+- Encrypted backups
+- Secure key storage (not in codebase)
+
+**Implementation:**
+
+- Enable PostgreSQL encryption at tablespace creation
+- Keys stored in HashiCorp Vault or AWS Secrets Manager
+- Key rotation policy: Every 12 months
+
+##### 3. Field-Level Encryption (Application-Level)
+
+**Ultra-Sensitive Fields:**
+
+- `patients.medical_history` - Full medical history (TEXT, encrypted)
+- `sessions.notes` - Practitioner notes (TEXT, encrypted)
+- `patients.notes` - Patient notes (TEXT, encrypted)
+- `messages.body` - Secure messages (TEXT, encrypted)
+- `oauth_connections.access_token` - OAuth tokens (TEXT, encrypted)
+- `oauth_connections.refresh_token` - OAuth refresh tokens (TEXT, encrypted)
+- `external_integrations.configuration` - API keys, secrets (JSONB, encrypted)
+- `device_connections.connection_parameters` - Device secrets (JSONB, encrypted)
+
+**Implementation:**
+
+- Python `cryptography` library (Fernet symmetric encryption)
+- Encryption keys stored in environment variables (loaded from secrets manager)
+- Automatic encryption on write, decryption on read (via ORM hooks)
+- Key rotation support without data migration
+
+**Example Code Pattern:**
+
+```python
+from cryptography.fernet import Fernet
+from sqlalchemy import TypeDecorator, Text
+
+class EncryptedText(TypeDecorator):
+    impl = Text
+
+    def process_bind_param(self, value, dialect):
+        if value is not None:
+            return fernet.encrypt(value.encode()).decode()
+        return value
+
+    def process_result_value(self, value, dialect):
+        if value is not None:
+            return fernet.decrypt(value.encode()).decode()
+        return value
+```
+
+#### Authentication & Authorization
+
+##### Authentication Methods
+
+1. **Email + Password:**
+
+- bcrypt hashing (cost factor 12)
+- Minimum password requirements: 12 characters, complexity rules
+- Password reset via secure token (expires 1 hour)
+- Failed login throttling (max 5 attempts, 15-minute lockout)
+
+2. **OAuth 2.0:**
+
+- Google Sign-In
+- Apple Sign-In
+- Tokens stored encrypted
+
+3. **Two-Factor Authentication (TOTP):**
+
+- Optional but encouraged for practitioners
+- TOTP standard (Google Authenticator, Authy compatible)
+- Backup codes generated (10 single-use codes)
+- Recovery process via admin
+
+4. **Biometric (Mobile Apps):**
+
+- Face ID / Touch ID (iOS)
+- Biometric authentication (Android)
+- Falls back to password if biometric fails
+
+##### Authorization (Role-Based Access Control)
+
+**Roles:**
+
+1. **Admin:** Full system access, tenant management, user management
+2. **Practitioner:** Manage own clients, create sessions, view reports, prescribe protocols
+3. **Researcher:** Read-only access to anonymized data, export capabilities
+4. **Client/Patient:** View own data only, book appointments, secure messaging
+
+**Permission Matrix:**
+| Resource | Admin | Practitioner | Researcher | Client |
+|----------|-------|--------------|------------|--------|
+| Manage Tenants | ✅ | ❌ | ❌ | ❌ |
+| View All Patients | ✅ | ❌ (only own) | ❌ | ❌ |
+| Create Sessions | ✅ | ✅ | ❌ | ❌ |
+| View Own Sessions | ✅ | ✅ | ❌ | ✅ |
+| Prescribe Protocols | ✅ | ✅ | ❌ | ❌ |
+| Research Data | ✅ | ❌ | ✅ | ❌ |
+| Export Data | ✅ | ⚠️ (own patients) | ✅ (anonymized) | ⚠️ (own data) |
+| Configure System | ✅ | ❌ | ❌ | ❌ |
+
+**Implementation:**
+
+- JWT tokens for API authentication (RS256 algorithm)
+- Token expiration: 15 minutes (access token), 7 days (refresh token)
+- Token stored in httpOnly cookies (web) or secure storage (mobile)
+- Refresh token rotation on use
+- Permission checks at GraphQL resolver level
+
+#### Multi-Tenant Data Isolation
+
+**Strategy:** Row-Level Security (RLS) in PostgreSQL
+
+**Implementation:**
+
+1. Every table has `tenant_id` column (UUID, indexed)
+2. PostgreSQL RLS policies enforce tenant isolation
+3. Application sets `app.current_tenant_id` session variable
+4. All queries automatically filtered by tenant
+5. No application-level mistakes can leak data across tenants
+
+**Example RLS Policy:**
+
+```sql
+CREATE POLICY tenant_isolation ON patients
+  USING (tenant_id = current_setting('app.current_tenant_id')::uuid);
+
+ALTER TABLE patients ENABLE ROW LEVEL SECURITY;
+```
+
+**Benefit:** Even if application has bug, database prevents cross-tenant data access
+
+#### Security Features
+
+##### 1. API Rate Limiting
+
+**Implementation:** Redis-based rate limiting
+
+**Limits:**
+
+- **Anonymous:** 10 requests/minute
+- **Authenticated Users:** 100 requests/minute
+- **Practitioners:** 500 requests/minute
+- **Admins:** 1000 requests/minute
+
+**Per-Endpoint Limits:**
+
+- Login endpoint: 5 attempts per 15 minutes (prevent brute force)
+- Export endpoint: 10 exports per hour (prevent data exfiltration)
+
+##### 2. Input Validation & Sanitization
+
+**Implementation:**
+
+- Pydantic models for all API inputs (automatic validation)
+- GraphQL schema validation
+- SQL injection prevention (parameterized queries via SQLAlchemy)
+- XSS prevention (React auto-escapes, additional sanitization for rich text)
+- CSRF protection (CSRF tokens for state-changing operations)
+
+##### 3. Content Security Policy (CSP)
+
+**HTTP Headers:**
+
+```
+Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' data:; connect-src 'self' wss://radiquant2.de;
+X-Frame-Options: DENY
+X-Content-Type-Options: nosniff
+X-XSS-Protection: 1; mode=block
+Referrer-Policy: strict-origin-when-cross-origin
+```
+
+##### 4. Session Management
+
+**Features:**
+
+- Secure session handling (httpOnly, secure, sameSite cookies)
+- Session timeout after 15 minutes inactivity (configurable per tenant)
+- Concurrent session limit: 3 per user
+- Session revocation on password change
+- "Remember me" option (extends refresh token to 30 days)
+
+##### 5. Audit Logging (Comprehensive)
+
+**What is Logged:**
+
+- All authentication attempts (success and failure)
+- All data access (who accessed which patient record)
+- All data modifications (create, update, delete with old/new values)
+- All exports and prints
+- All security events (suspicious activity, failed authorization)
+- IP address, user agent, timestamp for all actions
+
+**Storage:**
+
+- `audit_log` table (append-only, never deleted)
+- Separate from application tables (prevent tampering)
+- Retention: Indefinite (compliance requirement)
+- Indexed for fast querying
+- Regular integrity checks (hash chain or similar)
+
+##### 6. Data Backup & Recovery
+
+**Backup Strategy:**
+
+- **PostgreSQL:** Automated daily backups (full + WAL archiving)
+- **Frequency:** Full backup daily at 2 AM, incremental every 6 hours
+- **Retention:** 30 daily, 12 monthly, 7 yearly
+- **Encryption:** All backups encrypted with AES-256
+- **Storage:** Off-server location (S3-compatible storage or separate server)
+- **Testing:** Monthly restore test to verify backup integrity
+
+**Disaster Recovery:**
+
+- RPO (Recovery Point Objective): 6 hours max
+- RTO (Recovery Time Objective): 4 hours max
+- Documented recovery procedures
+- Annual DR drill
+
+##### 7. Vulnerability Management
+
+**Practices:**
+
+- Dependency scanning (Snyk, Dependabot)
+- Container image scanning (Trivy)
+- Regular penetration testing (annual)
+- Bug bounty program (future consideration)
+- Security update policy: Critical patches within 48 hours
+- CVE monitoring for all dependencies
+
+##### 8. Secrets Management
+
+**Implementation:**
+
+- No secrets in code or environment files committed to git
+- Secrets stored in HashiCorp Vault or similar
+- Kubernetes Secrets (sealed secrets for production)
+- Automatic secret rotation for databases, API keys
+- Separate secrets per environment (dev, staging, prod)
+
+**Secrets to Manage:**
+
+- Database credentials
+- JWT signing keys
+- Encryption keys (field-level)
+- OAuth client secrets
+- API keys (external integrations)
+- TLS certificates
+
+##### 9. Security Monitoring & Alerting
+
+**Monitored Events:**
+
+- Multiple failed login attempts
+- Unusual data access patterns (e.g., accessing 100 patient records in 1 minute)
+- Data export volumes (large exports trigger alerts)
+- Privilege escalation attempts
+- API abuse (rate limit violations)
+- Database connection anomalies
+
+**Alerting:**
+
+- Real-time alerts via Grafana
+- Email notifications for critical events
+- Integration with incident response platform (PagerDuty or similar)
+
+#### GDPR Compliance Features
+
+##### 1. Data Subject Rights
+
+**Right to Access (Article 15):**
+
+- API endpoint: `GET /api/privacy/data-export`
+- Generates complete export of user's data (JSON, PDF)
+- Includes all personal data, processing purposes, retention periods
+- Delivered within 30 days (automated, instant in most cases)
+
+**Right to Erasure (Article 17 - "Right to be Forgotten"):**
+
+- API endpoint: `DELETE /api/privacy/erasure-request`
+- Soft delete with anonymization
+- Retains audit trails (legal requirement)
+- Cascading deletion of all related data
+- Manual review for practitioners (affects historical records)
+- 30-day confirmation period before permanent deletion
+
+**Right to Data Portability (Article 20):**
+
+- Export in machine-readable format (JSON, FHIR)
+- Includes all personal data
+- Can transfer to another service
+
+**Right to Rectification (Article 16):**
+
+- Users can update own data via portal
+- Audit log tracks all modifications
+
+##### 2. Consent Management
+
+**Implementation:**
+
+- `patients.consent_forms_signed` (JSONB with timestamps)
+- Explicit consent for:
+- Data processing for treatment
+- Data use for research (optional, separate consent)
+- Marketing communications (optional)
+- Third-party integrations (per integration)
+- Consent can be withdrawn at any time
+- Audit trail of all consent changes
+
+##### 3. Data Breach Notification
+
+**Process:**
+
+1. Detection (automated monitoring + manual reporting)
+2. Assessment (severity, scope, affected users)
+3. Containment (immediate actions to stop breach)
+4. Notification:
+
+- Supervisory authority within 72 hours (if high risk)
+- Affected individuals without undue delay
+- Documentation in security\_events table
+
+5. Remediation and post-incident review
+
+**Preparedness:**
+
+- Documented breach response plan
+- Designated Data Protection Officer (DPO) contact
+- Templates for breach notifications
+- Regular drills
+
+##### 4. Privacy by Design & Default
+
+**Principles:**
+
+- Minimize data collection (only what's necessary)
+- Pseudonymization where possible (research data)
+- Automatic data retention policies (archival after 2 years, deletion after 7 years)
+- Default privacy settings (most restrictive)
+- Privacy impact assessments for new features
+
+#### Additional Security Measures
+
+##### 1. Network Security
+
+**Firewall Rules:**
+
+- Only ports 22 (SSH), 80 (HTTP→redirect), 443 (HTTPS) open externally
+- All other services (PostgreSQL, Redis, etc.) internal only
+- Kubernetes network policies for pod-to-pod traffic
+- Fail2ban for SSH brute force protection
+
+##### 2. Container Security
+
+**Practices:**
+
+- Non-root containers (run as unprivileged user)
+- Minimal base images (Alpine Linux)
+- Read-only root filesystems where possible
+- No privileged containers (except for specific hardware access)
+- Image signing and verification
+- Regular image updates
+
+##### 3. Dependency Security
+
+**Python Dependencies:**
+
+- Pin exact versions in requirements.txt
+- Automated security scanning (pip-audit, Safety)
+- Regular updates (monthly review)
+- Separate dependencies for dev/test/prod
+
+**JavaScript Dependencies:**
+
+- Package lock files committed
+- npm audit / yarn audit in CI/CD
+- Dependabot for automated PRs
+
+##### 4. Secure Development Practices
+
+**Code Review:**
+
+- All code changes reviewed before merge
+- Security checklist for reviewers
+- Automated static analysis (Bandit for Python, ESLint for JS)
+
+**Testing:**
+
+- Security unit tests (test authentication, authorization)
+- Integration tests for security flows
+- Penetration testing (annual minimum)
+
+**CI/CD Security:**
+
+- Secrets not in CI/CD logs
+- Isolated build environments
+- Signed commits (GPG)
+
+#### Security Incident Response Plan
+
+**Phases:**
+
+1. **Preparation:** Documented procedures, trained team, tools ready
+2. **Detection:** Monitoring, alerts, user reports
+3. **Containment:** Isolate affected systems, prevent spread
+4. **Eradication:** Remove threat, patch vulnerabilities
+5. **Recovery:** Restore services, verify security
+6. **Lessons Learned:** Post-incident review, update procedures
+
+**Team:**
+
+- Incident Commander (appointed per incident)
+- Technical Lead (root cause analysis)
+- Communications Lead (user notifications, PR)
+- Legal/Compliance (regulatory notifications)
+
+### Deployment Strategy
+
+#### Environment Strategy
+
+**Environments:**
+
+1. **Development (Local):** Docker Compose on developer machines
+2. **Staging:** Kubernetes cluster (same server, separate namespace)
+3. **Production:** Kubernetes cluster (root3091.ipp-srv.net)
+
+**Why Hybrid Approach:**
+
+- **Development Speed:** Docker Compose is faster for local iteration, no K8s overhead
+- **Production Robustness:** Kubernetes provides HA, auto-scaling, self-healing, rolling updates
+- **Consistency:** Same Docker images used in dev and prod
+- **Server Ready:** Existing K8s cluster on server already configured
+- **Medical Platform Needs:** High availability, zero-downtime deployments critical
+
+#### Docker Compose (Development)
+
+**File:** `docker-compose.dev.yml`
+
+**Services:**
+
+- `postgres` - PostgreSQL 15 (port 5432)
+- `redis` - Redis 7 (port 6379)
+- `ollama` - Ollama LLM (port 11434, GPU passthrough)
+- `api` - FastAPI backend (port 8000, hot-reload)
+- `web` - Next.js frontend (port 3000, hot-reload)
+- `grafana` - Grafana (port 3001)
+- `prometheus` - Prometheus (port 9090)
+
+**Features:**
+
+- Volume mounts for hot-reload (code changes immediately reflected)
+- Local secrets in `.env.development` (not committed)
+- Health checks for all services
+- GPU access for Ollama (--gpus all)
+
+**Developer Workflow:**
+
+```bash
+cd /srv/radiquant2
+docker-compose -f docker-compose.dev.yml up
+# Access: http://localhost:3000 (web), http://localhost:8000/docs (API)
+# Make code changes → auto-reload
+```
+
+#### Kubernetes (Production & Staging)
+
+**Cluster:** Existing single-node K8s cluster on root3091.ipp-srv.net
+
+**Namespaces:**
+
+- `radiquant2-production` - Live production environment
+- `radiquant2-staging` - Pre-production testing environment
+
+**Workloads:**
+
+**1. API Deployment**
+
+- **Replicas:** 3 (production), 2 (staging)
+- **Image:** `radiquant2-api:latest`
+- **Resources:**
+- Requests: 2 CPU, 4GB RAM
+- Limits: 4 CPU, 8GB RAM
+- **Health Checks:** `/health` endpoint (liveness), `/ready` (readiness)
+- **Autoscaling:** HPA (Horizontal Pod Autoscaler) - scale 3-10 pods based on CPU >70%
+- **Rolling Update:** MaxSurge 1, MaxUnavailable 0 (zero-downtime)
+
+**2. Web Deployment**
+
+- **Replicas:** 2 (production), 1 (staging)
+- **Image:** `radiquant2-web:latest`
+- **Resources:**
+- Requests: 1 CPU, 2GB RAM
+- Limits: 2 CPU, 4GB RAM
+- **SSR:** Server-side rendering enabled
+- **Static Assets:** CDN or S3-compatible storage
+
+**3. Worker Deployment** (AI/ML Jobs, Harmonization)
+
+- **Replicas:** 2 (production), 1 (staging)
+- **Image:** `radiquant2-worker:latest`
+- **Resources:**
+- Requests: 4 CPU, 16GB RAM, 1 GPU
+- Limits: 8 CPU, 32GB RAM, 1 GPU
+- **GPU:** NVIDIA RTX 4000 (via nvidia-device-plugin)
+- **Queue:** Pulls jobs from Redis queue
+- **Autoscaling:** Custom metrics (queue length >10 → scale up)
+
+**4. Stateful Services**
+
+**PostgreSQL:**
+
+- **Type:** StatefulSet
+- **Replicas:** 1 (single-node, future: HA with streaming replication)
+- **Storage:** Persistent Volume (SSD, 500GB)
+- **Backups:** CronJob daily backups to S3-compatible storage
+
+**Redis:**
+
+- **Type:** StatefulSet
+- **Replicas:** 1 (single-node, future: Redis Cluster)
+- **Storage:** Persistent Volume (50GB)
+- **Persistence:** AOF + RDB
+
+**Ollama:**
+
+- **Type:** StatefulSet
+- **Replicas:** 1 (GPU-bound)
+- **Storage:** Persistent Volume for models (100GB)
+- **GPU:** Requires exclusive GPU access
+
+**5. Ingress (Traefik)**
+
+- **Type:** DaemonSet (runs on all nodes)
+- **Ports:** 80 (HTTP), 443 (HTTPS)
+- **TLS:** Let's Encrypt automatic certificates
+- **Routes:**
+- `https://radiquant2.de` → Web (Next.js)
+- `https://api.radiquant2.de` → API (FastAPI)
+- `https://api.radiquant2.de/graphql` → GraphQL endpoint
+- `wss://api.radiquant2.de/ws` → WebSocket
+- `https://grafana.radiquant2.de` → Grafana (auth protected)
+
+**6. Monitoring Stack**
+
+- **Prometheus:** Scrapes metrics from all pods
+- **Grafana:** Dashboards (pods, GPU, business metrics)
+- **Loki:** Log aggregation
+- **Promtail:** Log collection from all pods
+
+#### CI/CD Pipeline
+
+**Tool:** GitHub Actions with Self-Hosted Runner
+
+**Why Self-Hosted Runner:**
+
+- **Unlimited Builds:** No minute limits (free)
+- **GPU Access:** Can run ML model tests/training in CI
+- **Performance:** 123GB RAM, fast CPU = fast builds
+- **Security:** Code and data never leaves server
+- **Cost:** Free (vs. paid minutes on GitHub)
+
+**Runner Setup:**
+
+- Installed on root3091.ipp-srv.net
+- Docker-in-Docker capability
+- Access to NVIDIA GPU for ML tests
+- Isolated builds (ephemeral containers)
+
+**Pipeline Stages:**
+
+**1. Code Quality (on every PR)**
+
+```yaml
+name: Code Quality
+on: [pull_request]
+jobs:
+  lint:
+    runs-on: self-hosted
+    steps:
+      - Checkout code
+      - Run linters (ESLint, Bandit, Black)
+      - Type checking (TypeScript, mypy)
+      - Code formatting check
+  test:
+    runs-on: self-hosted
+    steps:
+      - Run unit tests (vitest, pytest)
+      - Run integration tests
+      - Generate coverage report
+      - Upload to Codecov
+```
+
+**2. Security Scan (on every PR)**
+
+```yaml
+name: Security
+jobs:
+  scan:
+    runs-on: self-hosted
+    steps:
+      - Dependency audit (npm audit, pip-audit)
+      - SAST (Bandit, Semgrep)
+      - Container scanning (Trivy)
+      - Secrets scanning (TruffleHog)
+```
+
+**3. Build (on main branch push)**
+
+```yaml
+name: Build
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - Checkout
+      - Turborepo build (cached)
+      - Build Docker images:
+          * radiquant2-api:$SHA
+          * radiquant2-web:$SHA
+          * radiquant2-worker:$SHA
+      - Push to container registry
+      - Tag as :latest
+```
+
+**4. Deploy to Staging (automatic on main)**
+
+```yaml
+name: Deploy Staging
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - Update K8s manifests (kustomize)
+      - kubectl apply -f k8s/staging/
+      - Wait for rollout complete
+      - Run smoke tests
+      - Notify Slack/Email
+```
+
+**5. Deploy to Production (manual approval)**
+
+```yaml
+name: Deploy Production
+on:
+  workflow_dispatch:  # Manual trigger
+jobs:
+  deploy:
+    runs-on: self-hosted
+    environment: production  # Requires approval
+    steps:
+      - Backup database (pg_dump)
+      - Update K8s manifests
+      - kubectl apply -f k8s/production/
+      - Rolling update (zero-downtime)
+      - Health checks
+      - Smoke tests
+      - Notify team
+```
+
+**GitFlow:**
+
+```
+Developer → Feature Branch → PR → Code Review
+    ↓ (automated)
+Tests + Security Scans Pass
+    ↓ (merge to main)
+Build Docker Images
+    ↓ (automated)
+Deploy to Staging
+    ↓ (smoke tests pass)
+Notify team
+    ↓ (manual approval)
+Deploy to Production (Rolling Update)
+    ↓ (health checks pass)
+Production Live!
+```
+
+#### Deployment Commands
+
+**Initial Setup:**
+
+```bash
+# 1. Create namespaces
+kubectl create namespace radiquant2-production
+kubectl create namespace radiquant2-staging
+
+# 2. Setup secrets
+kubectl create secret generic db-credentials \
+  --from-literal=username=radiquant2 \
+  --from-literal=password=$DB_PASSWORD \
+  -n radiquant2-production
+
+# 3. Deploy infrastructure (DB, Redis, Ollama)
+kubectl apply -f infrastructure/k8s/stateful/ -n radiquant2-production
+
+# 4. Wait for infrastructure ready
+kubectl wait --for=condition=ready pod -l app=postgres -n radiquant2-production
+
+# 5. Run migrations
+kubectl exec -it postgres-0 -n radiquant2-production -- \
+  psql -U radiquant2 -f /migrations/001_initial_schema.sql
+
+# 6. Deploy application
+kubectl apply -f infrastructure/k8s/deployments/ -n radiquant2-production
+
+# 7. Setup monitoring
+kubectl apply -f infrastructure/k8s/monitoring/ -n radiquant2-production
+```
+
+**Regular Deployments (via CI/CD):**
+
+```bash
+# Staging (automatic after main push)
+kubectl set image deployment/api api=radiquant2-api:$SHA -n radiquant2-staging
+kubectl rollout status deployment/api -n radiquant2-staging
+
+# Production (manual, after approval)
+kubectl set image deployment/api api=radiquant2-api:$SHA -n radiquant2-production
+kubectl rollout status deployment/api -n radiquant2-production
+```
+
+**Rollback (if issues detected):**
+
+```bash
+kubectl rollout undo deployment/api -n radiquant2-production
+kubectl rollout status deployment/api -n radiquant2-production
+```
+
+#### Monitoring & Observability
+
+**Metrics (Prometheus):**
+
+- Application metrics: Request rate, latency, error rate
+- Business metrics: Sessions created, analyses completed, users active
+- Infrastructure metrics: CPU, RAM, disk, network
+- GPU metrics: Utilization, VRAM usage, temperature
+- Database metrics: Query performance, connection pool, slow queries
+
+**Dashboards (Grafana):**
+
+1. **Overview Dashboard:** System health at a glance
+2. **API Performance:** Endpoint latencies, error rates, throughput
+3. **Business Metrics:** Daily sessions, active users, revenue (if applicable)
+4. **GPU Utilization:** ML workload monitoring
+5. **Database Health:** Query performance, locks, replication lag
+
+**Logs (Loki):**
+
+- All pod logs aggregated
+- Searchable by timestamp, pod, log level, keyword
+- Retention: 30 days online, 1 year archived
+
+**Alerts:**
+
+- **Critical:** Service down, database unreachable, disk >90% full
+- **Warning:** High latency (>2s), error rate >1%, CPU >80%
+- **Info:** Deployment started/completed, scaling events
+
+**Notification Channels:**
+
+- Email (for all severity)
+- Slack (for critical + warning)
+- PagerDuty (for critical, 24/7 on-call)
+
+#### Scaling Strategy
+
+**Horizontal Pod Autoscaling (HPA):**
+
+- **API Pods:** Scale 3-10 based on CPU >70% or request rate >1000 req/min
+- **Worker Pods:** Scale 2-5 based on Redis queue length >10 jobs
+- **Web Pods:** Scale 2-5 based on CPU >70%
+
+**Vertical Scaling (Future):**
+
+- If single-node cluster, can increase node resources
+- For multi-node, add more nodes to cluster
+
+**GPU Scaling:**
+
+- Currently 1x RTX 4000 (20GB VRAM)
+- Can add more GPUs or upgrade to A100 for heavier ML workloads
+- Time-slicing GPU across multiple pods if needed
+
+#### Disaster Recovery
+
+**Backup Strategy:**
+
+- **Database:** Daily full backup + WAL archiving (continuous)
+- **Code:** Git repository (GitHub/GitLab)
+- **Secrets:** Backup of Kubernetes secrets (encrypted)
+- **Configuration:** K8s manifests in Git
+- **File Storage:** Daily backups of uploaded files
+
+**Recovery Procedures:**
+
+1. **Complete Server Failure:**
+
+- Provision new server (or use backup server)
+- Restore K8s cluster (kubeadm, manifests)
+- Restore database from backup
+- Restore secrets
+- Deploy latest images
+- Verify functionality
+- **RTO:** 4 hours
+
+2. **Database Corruption:**
+
+- Stop application pods
+- Restore database from latest backup
+- Replay WAL logs if available
+- Start application pods
+- Verify data integrity
+- **RTO:** 2 hours
+
+3. **Bad Deployment:**
+
+- Immediate rollback: `kubectl rollout undo`
+- Investigate issue
+- Fix and redeploy
+- **RTO:** 5 minutes (automatic rollback)
+
+**Testing:**
+
+- Quarterly disaster recovery drills
+- Annual full recovery test (restore to different server)
+
+#### Migration from radiquant v1
+
+**Strategy:** Parallel run, gradual cutover
+
+**Steps:**
+
+1. **Deploy radiquant2 alongside radiquant v1** (different domain/port)
+2. **Migrate BAT programs** from v1 to v2 database
+3. **Migrate remedy database** (Heel, Nutramedix)
+4. **Test thoroughly** with shadow traffic
+5. **Pilot with selected practitioners** (opt-in beta)
+6. **Gradual rollout** to all users
+7. **Cutover DNS** from v1 to v2
+8. **Keep v1 running** (read-only) for 1 month
+9. **Decommission v1** after confirmation
+
+**Data Migration:**
+
+- Script to export from v1 SQLite databases
+- Transform to v2 PostgreSQL schema
+- Validation checks (row counts, data integrity)
+- Dry-run migrations before production
+
+### GraphQL API Schema
+
+#### Schema Overview
+
+**GraphQL Server:** Strawberry GraphQL (Python) integrated with FastAPI
+
+**Features:**
+
+- Type-safe schema with Python type hints
+- Automatic validation
+- DataLoader for N+1 query optimization
+- Subscription support via WebSocket
+- Built-in introspection for client code generation
+
+**Code Generation:**
+
+- TypeScript types for Next.js (via GraphQL Code Generator)
+- Swift types for iOS (via Apollo iOS)
+- Kotlin types for Android (via Apollo Android)
+
+#### Core Types
+
+```graphql
+# Scalars
+scalar UUID
+scalar DateTime
+scalar JSON
+scalar Upload
+
+# Enums
+enum UserRole {
+  ADMIN
+  PRACTITIONER
+  RESEARCHER
+  CLIENT
+}
+
+enum SessionStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  NO_SHOW
+}
+
+enum AnalysisType {
+  NLS
+  MORPHOGENETIC_FIELD
+  MULTIPLEX_SCAN
+  CUSTOM
+}
+
+enum HarmonizationJobStatus {
+  QUEUED
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+# Core Object Types
+type User {
+  id: UUID!
+  email: String!
+  firstName: String!
+  lastName: String!
+  role: UserRole!
+  tenant: Tenant!
+  createdAt: DateTime!
+  lastLoginAt: DateTime
+}
+
+type Tenant {
+  id: UUID!
+  name: String!
+  slug: String!
+  status: String!
+  subscriptionTier: String!
+}
+
+type Patient {
+  id: UUID!
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime!
+  email: String
+  phone: String
+  practitioner: User!
+  sessions(limit: Int, offset: Int): [Session!]!
+  activeProtocols: [PatientProtocol!]!
+  recentAnalyses(limit: Int): [ResonanceAnalysis!]!
+}
+
+type Session {
+  id: UUID!
+  patient: Patient!
+  practitioner: User!
+  scheduledAt: DateTime!
+  startedAt: DateTime
+  completedAt: DateTime
+  status: SessionStatus!
+  sessionType: String!
+  notes: String
+  analyses: [ResonanceAnalysis!]!
+  prescriptions: [RemedyPrescription!]!
+}
+
+type ResonanceAnalysis {
+  id: UUID!
+  session: Session!
+  analysisType: AnalysisType!
+  startedAt: DateTime!
+  completedAt: DateTime
+  status: String!
+  confidenceScore: Float
+  anomalies: JSON
+  fieldVisualizationData: JSON
+  nlsMeasurements: [NLSMeasurement!]!
+  aiSuggestions: [AISuggestion!]!
+}
+
+type NLSMeasurement {
+  id: UUID!
+  bodySystem: String!
+  organ: String!
+  frequency: Float!
+  resonanceStrength: Float!
+  deviationFromNormal: Float!
+  interpretation: String
+}
+
+type AISuggestion {
+  id: UUID!
+  suggestionType: String!
+  suggestionContent: JSON!
+  confidenceScore: Float!
+  reasoning: String!
+  practitionerAction: String
+}
+
+type HarmonizationJob {
+  id: UUID!
+  patient: Patient!
+  protocol: TherapyProtocol!
+  status: HarmonizationJobStatus!
+  progressPercentage: Int!
+  startedAt: DateTime
+  completedAt: DateTime
+  results: JSON
+}
+
+type TherapyProtocol {
+  id: UUID!
+  name: String!
+  description: String!
+  protocolType: String!
+  steps: JSON!
+  typicalDurationMinutes: Int!
+  indications: [String!]!
+  contraindications: [String!]!
+  successRate: Float
+}
+
+type BATProgram {
+  id: UUID!
+  name: String!
+  category: String!
+  subcategory: String
+  description: String!
+  frequencies: JSON!
+  durationMinutes: Int!
+  indications: [String!]!
+  successRate: Float
+}
+
+type Remedy {
+  id: UUID!
+  name: String!
+  brand: String
+  category: String!
+  description: String!
+  indications: [String!]!
+  contraindications: [String!]!
+  typicalDosage: String
+  availability: Boolean!
+}
+
+type RemedyPrescription {
+  id: UUID!
+  patient: Patient!
+  remedy: Remedy!
+  dosage: String!
+  frequency: String!
+  durationDays: Int!
+  startDate: DateTime!
+  status: String!
+}
+
+type Appointment {
+  id: UUID!
+  patient: Patient!
+  practitioner: User!
+  scheduledAt: DateTime!
+  durationMinutes: Int!
+  status: String!
+  notes: String
+}
+
+type ResearchStudy {
+  id: UUID!
+  name: String!
+  description: String!
+  studyType: String!
+  principalInvestigator: User!
+  startDate: DateTime!
+  endDate: DateTime
+  status: String!
+  cohorts: [StudyCohort!]!
+}
+
+type StudyCohort {
+  id: UUID!
+  study: ResearchStudy!
+  name: String!
+  description: String!
+  cohortType: String!
+  memberCount: Int!
+}
+
+type MLPrediction {
+  id: UUID!
+  patient: Patient!
+  predictionType: String!
+  predictionValue: JSON!
+  confidenceScore: Float!
+  explanation: String!
+  influencingFactors: JSON!
+}
+```
+
+#### Query Operations
+
+```graphql
+type Query {
+  # Authentication & User Management
+  me: User!
+  user(id: UUID!): User
+  users(role: UserRole, limit: Int, offset: Int): [User!]!
+
+  # Patient Management
+  patient(id: UUID!): Patient
+  patients(
+    practitionerId: UUID
+    search: String
+    limit: Int
+    offset: Int
+  ): PatientsConnection!
+
+  # Session & Analysis
+  session(id: UUID!): Session
+  sessions(
+    patientId: UUID
+    practitionerId: UUID
+    status: SessionStatus
+    from: DateTime
+    to: DateTime
+    limit: Int
+    offset: Int
+  ): [Session!]!
+
+  resonanceAnalysis(id: UUID!): ResonanceAnalysis
+
+  # Appointments
+  appointment(id: UUID!): Appointment
+  appointments(
+    patientId: UUID
+    practitionerId: UUID
+    from: DateTime
+    to: DateTime
+  ): [Appointment!]!
+  upcomingAppointments(practitionerId: UUID!, days: Int): [Appointment!]!
+
+  # Protocols & Programs
+  therapyProtocol(id: UUID!): TherapyProtocol
+  therapyProtocols(search: String, protocolType: String): [TherapyProtocol!]!
+
+  batProgram(id: UUID!): BATProgram
+  batPrograms(category: String, search: String): [BATProgram!]!
+
+  # Remedies
+  remedy(id: UUID!): Remedy
+  remedies(brand: String, category: String, search: String): [Remedy!]!
+
+  # Harmonization Jobs
+  harmonizationJob(id: UUID!): HarmonizationJob
+  harmonizationJobs(
+    patientId: UUID
+    status: HarmonizationJobStatus
+  ): [HarmonizationJob!]!
+
+  # Research & Analytics
+  researchStudy(id: UUID!): ResearchStudy
+  researchStudies(status: String): [ResearchStudy!]!
+
+  studyCohort(id: UUID!): StudyCohort
+
+  cohortStatistics(cohortId: UUID!): CohortStatistics!
+
+  # ML Predictions
+  mlPrediction(id: UUID!): MLPrediction
+  patientPredictions(patientId: UUID!): [MLPrediction!]!
+
+  # Dashboard & Reports
+  practitionerDashboard: PractitionerDashboard!
+  patientDashboard: PatientDashboard!
+  researchDashboard: ResearchDashboard!
+
+  # Notifications
+  notifications(unreadOnly: Boolean, limit: Int): [Notification!]!
+  unreadNotificationCount: Int!
+
+  # Privacy & GDPR
+  myDataExport: DataExport!
+
+  # System
+  systemHealth: SystemHealth!
+}
+
+# Paginated result types
+type PatientsConnection {
+  edges: [PatientEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type PatientEdge {
+  node: Patient!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# Dashboard types
+type PractitionerDashboard {
+  sessionsToday: Int!
+  activePatientsCount: Int!
+  pendingReviewsCount: Int!
+  upcomingSessions: [Session!]!
+  recentAnalyses: [ResonanceAnalysis!]!
+  harmonizationJobsInProgress: [HarmonizationJob!]!
+  deviceStatus: [DeviceStatus!]!
+}
+
+type PatientDashboard {
+  upcomingAppointments: [Appointment!]!
+  recentSessions: [Session!]!
+  activeProtocols: [PatientProtocol!]!
+  activePrescriptions: [RemedyPrescription!]!
+  healthSummary: HealthSummary!
+}
+
+type ResearchDashboard {
+  activeStudiesCount: Int!
+  totalParticipants: Int!
+  recentFindings: [ResearchFinding!]!
+  cohortComparisons: [CohortComparison!]!
+}
+
+type DeviceStatus {
+  deviceId: String!
+  deviceType: String!
+  status: String!
+  lastSeenAt: DateTime
+}
+
+type HealthSummary {
+  latestAnalysisDate: DateTime
+  overallScore: Float
+  trendDirection: String
+  areasOfConcern: [String!]!
+}
+
+type CohortStatistics {
+  cohortId: UUID!
+  memberCount: Int!
+  averageAge: Float
+  genderDistribution: JSON!
+  outcomeMetrics: JSON!
+}
+
+type Notification {
+  id: UUID!
+  type: String!
+  title: String!
+  message: String!
+  linkUrl: String
+  readAt: DateTime
+  createdAt: DateTime!
+}
+
+type DataExport {
+  format: String!
+  url: String!
+  expiresAt: DateTime!
+}
+
+type SystemHealth {
+  status: String!
+  databaseStatus: String!
+  redisStatus: String!
+  gpuUtilization: Float!
+  apiLatency: Float!
+}
+```
+
+#### Mutation Operations
+
+```graphql
+type Mutation {
+  # Authentication
+  login(email: String!, password: String!): AuthPayload!
+  logout: Boolean!
+  refreshToken: AuthPayload!
+  requestPasswordReset(email: String!): Boolean!
+  resetPassword(token: String!, newPassword: String!): Boolean!
+
+  # User Management
+  createUser(input: CreateUserInput!): User!
+  updateUser(id: UUID!, input: UpdateUserInput!): User!
+  deleteUser(id: UUID!): Boolean!
+
+  # Patient Management
+  createPatient(input: CreatePatientInput!): Patient!
+  updatePatient(id: UUID!, input: UpdatePatientInput!): Patient!
+  deletePatient(id: UUID!): Boolean!
+
+  # Sessions
+  createSession(input: CreateSessionInput!): Session!
+  startSession(id: UUID!): Session!
+  completeSession(id: UUID!, notes: String): Session!
+  cancelSession(id: UUID!, reason: String): Session!
+
+  # Analysis
+  startResonanceAnalysis(
+    sessionId: UUID!
+    analysisType: AnalysisType!
+  ): ResonanceAnalysis!
+
+  completeResonanceAnalysis(
+    id: UUID!
+    results: JSON!
+  ): ResonanceAnalysis!
+
+  # AI Suggestions
+  generateAISuggestions(analysisId: UUID!): [AISuggestion!]!
+  acceptAISuggestion(suggestionId: UUID!): Boolean!
+  rejectAISuggestion(suggestionId: UUID!, feedback: String): Boolean!
+
+  # ML Predictions
+  generatePrediction(
+    patientId: UUID!
+    predictionType: String!
+  ): MLPrediction!
+
+  # Harmonization
+  createHarmonizationJob(
+    patientId: UUID!
+    protocolId: UUID!
+    priority: Int
+  ): HarmonizationJob!
+
+  cancelHarmonizationJob(id: UUID!): Boolean!
+
+  # Therapy Protocols
+  createTherapyProtocol(input: CreateTherapyProtocolInput!): TherapyProtocol!
+  updateTherapyProtocol(id: UUID!, input: UpdateTherapyProtocolInput!): TherapyProtocol!
+  deleteTherapyProtocol(id: UUID!): Boolean!
+
+  assignProtocolToPatient(
+    patientId: UUID!
+    protocolId: UUID!
+    startDate: DateTime!
+    frequency: String!
+  ): PatientProtocol!
+
+  # Remedies
+  createRemedy(input: CreateRemedyInput!): Remedy!
+  updateRemedy(id: UUID!, input: UpdateRemedyInput!): Remedy!
+
+  prescribeRemedy(
+    patientId: UUID!
+    remedyId: UUID!
+    dosage: String!
+    frequency: String!
+    durationDays: Int!
+  ): RemedyPrescription!
+
+  discontinuePrescription(id: UUID!, reason: String): Boolean!
+
+  # Appointments
+  createAppointment(input: CreateAppointmentInput!): Appointment!
+  updateAppointment(id: UUID!, input: UpdateAppointmentInput!): Appointment!
+  cancelAppointment(id: UUID!, reason: String): Boolean!
+
+  # Research
+  createResearchStudy(input: CreateResearchStudyInput!): ResearchStudy!
+  createStudyCohort(input: CreateStudyCohortInput!): StudyCohort!
+  enrollPatientInCohort(cohortId: UUID!, patientId: UUID!): Boolean!
+  withdrawPatientFromCohort(cohortId: UUID!, patientId: UUID!, reason: String): Boolean!
+
+  exportResearchData(
+    studyId: UUID
+    cohortId: UUID
+    format: String!
+    anonymizationLevel: String!
+  ): DataExport!
+
+  # Notifications
+  markNotificationRead(id: UUID!): Boolean!
+  markAllNotificationsRead: Boolean!
+
+  # Integrations
+  createExternalIntegration(input: CreateIntegrationInput!): ExternalIntegration!
+  syncIntegration(integrationId: UUID!): IntegrationSyncResult!
+
+  # Privacy & GDPR
+  requestDataExport(format: String!): DataExport!
+  requestDataErasure: ErasureRequest!
+
+  # File Upload
+  uploadDocument(
+    file: Upload!
+    patientId: UUID
+    documentType: String!
+  ): Document!
+}
+
+# Input Types
+input CreateUserInput {
+  email: String!
+  password: String!
+  firstName: String!
+  lastName: String!
+  role: UserRole!
+  phone: String
+}
+
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  phone: String
+}
+
+input CreatePatientInput {
+  firstName: String!
+  lastName: String!
+  dateOfBirth: DateTime!
+  email: String
+  phone: String
+  address: JSON
+  medicalHistory: String
+  allergies: [String!]
+  emergencyContact: JSON
+}
+
+input UpdatePatientInput {
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  address: JSON
+  medicalHistory: String
+  allergies: [String!]
+}
+
+input CreateSessionInput {
+  patientId: UUID!
+  scheduledAt: DateTime!
+  durationMinutes: Int!
+  sessionType: String!
+}
+
+input CreateTherapyProtocolInput {
+  name: String!
+  description: String!
+  protocolType: String!
+  steps: JSON!
+  typicalDurationMinutes: Int!
+  indications: [String!]!
+  contraindications: [String!]
+}
+
+input UpdateTherapyProtocolInput {
+  name: String
+  description: String
+  steps: JSON
+  indications: [String!]
+  contraindications: [String!]
+}
+
+input CreateRemedyInput {
+  name: String!
+  brand: String
+  category: String!
+  description: String!
+  indications: [String!]!
+  contraindications: [String!]
+  typicalDosage: String
+}
+
+input UpdateRemedyInput {
+  name: String
+  description: String
+  indications: [String!]
+  contraindications: [String!]
+  availability: Boolean
+}
+
+input CreateAppointmentInput {
+  patientId: UUID!
+  practitionerId: UUID!
+  scheduledAt: DateTime!
+  durationMinutes: Int!
+  notes: String
+}
+
+input UpdateAppointmentInput {
+  scheduledAt: DateTime
+  durationMinutes: Int
+  notes: String
+}
+
+input CreateResearchStudyInput {
+  name: String!
+  description: String!
+  studyType: String!
+  startDate: DateTime!
+  endDate: DateTime
+  inclusionCriteria: JSON!
+  exclusionCriteria: JSON!
+}
+
+input CreateStudyCohortInput {
+  studyId: UUID!
+  name: String!
+  description: String!
+  cohortType: String!
+  selectionRules: JSON!
+}
+
+input CreateIntegrationInput {
+  integrationType: String!
+  providerName: String!
+  configuration: JSON!
+}
+
+# Response Types
+type AuthPayload {
+  accessToken: String!
+  refreshToken: String!
+  user: User!
+}
+
+type PatientProtocol {
+  id: UUID!
+  patient: Patient!
+  protocol: TherapyProtocol!
+  prescribedAt: DateTime!
+  startDate: DateTime!
+  status: String!
+  adherencePercentage: Float
+}
+
+type ExternalIntegration {
+  id: UUID!
+  integrationType: String!
+  providerName: String!
+  status: String!
+  lastSyncAt: DateTime
+}
+
+type IntegrationSyncResult {
+  success: Boolean!
+  recordsProcessed: Int!
+  recordsSucceeded: Int!
+  recordsFailed: Int!
+  errors: [String!]
+}
+
+type ErasureRequest {
+  id: UUID!
+  status: String!
+  requestedAt: DateTime!
+  scheduledDeletionDate: DateTime!
+}
+
+type Document {
+  id: UUID!
+  filename: String!
+  contentType: String!
+  size: Int!
+  url: String!
+  uploadedAt: DateTime!
+}
+
+type ResearchFinding {
+  title: String!
+  summary: String!
+  significance: String!
+  date: DateTime!
+}
+
+type CohortComparison {
+  cohort1: StudyCohort!
+  cohort2: StudyCohort!
+  metrics: JSON!
+  statisticalSignificance: Float
+}
+```
+
+#### Subscription Operations (Real-time)
+
+```graphql
+type Subscription {
+  # Real-time session updates
+  sessionUpdated(sessionId: UUID!): Session!
+
+  # Real-time analysis progress
+  analysisProgress(analysisId: UUID!): AnalysisProgressUpdate!
+
+  # Harmonization job updates
+  harmonizationJobUpdated(jobId: UUID!): HarmonizationJob!
+
+  # Notifications
+  notificationReceived: Notification!
+
+  # Device status changes
+  deviceStatusChanged(deviceId: String!): DeviceStatus!
+
+  # System alerts (for admins)
+  systemAlert: SystemAlert!
+}
+
+type AnalysisProgressUpdate {
+  analysisId: UUID!
+  progressPercentage: Int!
+  currentStep: String!
+  estimatedTimeRemaining: Int
+}
+
+type SystemAlert {
+  severity: String!
+  message: String!
+  timestamp: DateTime!
+}
+```
+
+#### Error Handling
+
+**Error Types:**
+
+```graphql
+type Error {
+  message: String!
+  code: String!
+  path: [String!]
+  extensions: JSON
+}
+```
+
+**Standard Error Codes:**
+
+- `UNAUTHENTICATED` - User not logged in
+- `FORBIDDEN` - User lacks permission
+- `NOT_FOUND` - Resource doesn't exist
+- `VALIDATION_ERROR` - Input validation failed
+- `CONFLICT` - Resource conflict (e.g., duplicate email)
+- `INTERNAL_SERVER_ERROR` - Unexpected error
+- `RATE_LIMIT_EXCEEDED` - Too many requests
+- `SERVICE_UNAVAILABLE` - External service down
+
+**Error Response Example:**
+
+```json
+{
+  "errors": [
+    {
+      "message": "Patient not found",
+      "code": "NOT_FOUND",
+      "path": ["patient"],
+      "extensions": {
+        "patientId": "123e4567-e89b-12d3-a456-426614174000"
+      }
+    }
+  ],
+  "data": null
+}
+```
+
+#### Authentication Flow
+
+**GraphQL Context:**
+
+```python
+# Every GraphQL request includes context:
+context = {
+    "user": current_user,  # From JWT token
+    "tenant_id": current_tenant_id,  # From user's tenant
+    "request": http_request,
+    "data_loaders": {  # For N+1 optimization
+        "patient": patient_loader,
+        "session": session_loader,
+        # etc.
+    }
+}
+```
+
+**Permission Checks:**
+
+- Executed at resolver level
+- Based on user role and resource ownership
+- Multi-tenant isolation enforced automatically
+
+#### Performance Optimization
+
+**DataLoader Usage:**
+
+- Batch database queries to prevent N+1 problem
+- Example: Loading patients for multiple sessions in one query
+
+**Query Complexity Limits:**
+
+- Max depth: 10 levels
+- Max complexity score: 1000
+- Prevents expensive queries from overwhelming system
+
+**Caching:**
+
+- Redis caching for frequently accessed data (remedies, BAT programs)
+- Cache invalidation on mutations
+- Per-user cache isolation
+
+#### Client Code Generation
+
+**TypeScript (Next.js):**
+
+```bash
+# Generate types from GraphQL schema
+npm run codegen
+# Produces: packages/graphql/generated/graphql.ts
+```
+
+**Swift (iOS):**
+
+```bash
+# Apollo iOS code generation
+apollo codegen:generate --target=swift
+# Produces: API.swift with all types
+```
+
+**Kotlin (Android):**
+
+```bash
+# Apollo Android code generation
+./gradlew downloadApolloSchema
+./gradlew generateApolloSources
+# Produces: generated GraphQL Kotlin classes
+```
+
+---
+
+## VALIDATION & QUALITY ASSURANCE
+
+### 100% Implementierbarkeit Validierung
+
+**Validierungs-Ergebnis: 92% Implementierbarkeit**
+
+**Hardware-Kompatibilität: 100%**
+
+- ✅ Server: AMD Ryzen 5 9600X (12 Threads), 123 GB RAM, RTX 4000 20GB VRAM
+- ✅ CUDA 12.2 kompatibel mit allen ML-Frameworks (PyTorch, CuPy)
+- ✅ 1.6 TB freier Storage verfügbar
+- ✅ Kubernetes Cluster bereits vorhanden
+
+**Technologie-Stack: 95%**
+
+- ✅ Next.js 14 + shadcn/ui + Tailwind CSS → Vollständig kompatibel
+- ✅ Native Mobile Apps (Swift, Kotlin) → Standard Stacks
+- ✅ Python 3.11+ FastAPI + Strawberry GraphQL → Kompatibel
+- ✅ PostgreSQL 15 + Redis 7 → Bereits auf Server installiert
+- ⚠️ **Ergänzungen erforderlich:**
+- WebSocket Client Library: socket.io-client für Next.js
+- Ollama Python SDK in requirements.txt hinzufügen
+- PostgreSQL Row-Level Security Migration Scripts
+- File Upload Backend (MinIO S3-compatible, 50MB Max)
+- Email Service Integration (SendGrid oder AWS SES)
+
+**Datenbank-Schema: 95%**
+
+- ✅ 40+ Tabellen vollständig definiert
+- ✅ Foreign Key Relationships korrekt
+- ✅ Multi-Tenant Isolation mit tenant\_id
+- ⚠️ **Zu spezifizieren:**
+- Cascade Delete Behavior (ON DELETE CASCADE vs. RESTRICT)
+- Composite Indexes für Performance: `(tenant_id, created_at)`
+- Data Volume Schätzung: 500.000 Analysen/Jahr → PostgreSQL skaliert
+
+**GraphQL API: 90%**
+
+- ✅ Queries, Mutations, Subscriptions definiert
+- ✅ Permission Matrix vorhanden
+- ⚠️ **Ergänzungen:**
+- Sorting Parameters (`orderBy`) zu Queries hinzufügen
+- Batch Operations für Effizienz (z.B. `batchDeleteSessions`)
+- WebSocket Scaling mit Redis Pub/Sub für Multi-Pod
+
+**Sicherheit & Compliance: 88%**
+
+- ✅ TLS 1.3, Field-Level Encryption, JWT RS256
+- ✅ GDPR Rights (Access, Erasure, Portability)
+- ✅ Audit Logging vollständig
+- ⚠️ **Details erforderlich:**
+- JWT Key Management (Kubernetes Secrets spezifizieren)
+- Encryption Key Rotation Prozedur (12-monatige Rotation)
+- Consent Management UI-Flow (wann/wo präsentiert)
+- RLS Policies für alle Tabellen
+
+**Deployment: 85%**
+
+- ✅ Docker Compose (Dev) und Kubernetes (Prod) konfiguriert
+- ✅ CI/CD Pipeline mit GitHub Actions
+- ⚠️ **Zu detaillieren:**
+- PersistentVolumeClaims (StorageClass, Access Mode, Size)
+- Rollback-Strategie bei Health Check Failure
+- GPU Passthrough in docker-compose.yml
+
+**AI/ML Pipeline: 80%**
+
+- ✅ PyTorch + scikit-learn + GPU Acceleration
+- ⚠️ **Fehlende Spezifikationen:**
+- Training Data Management (Storage, Versioning)
+- Model Versioning System (MLflow empfohlen)
+- Ollama Model: `llama3:8b` oder `mistral:7b`
+
+**Integrationen: 75%**
+
+- ✅ FHIR Resources definiert, EHR Systems erwähnt
+- ⚠️ **Details fehlen:**
+- FHIR Server Library: `fhir.resources` Python Package
+- Epic/Cerner OAuth 2.0 Client Registration
+- PySerial Device Auto-Discovery Mechanismus
+
+**Kritische Lücken (keine Blocker):**
+
+1. PostgreSQL RLS Policy Details
+2. WebSocket Scaling mit Redis Pub/Sub
+3. ML Model Versioning (MLflow)
+4. File Upload Storage Backend (MinIO)
+5. Cascade Delete Behavior
+6. Backup & Restore Procedures (siehe nächste Sektion)
+
+**Alle identifizierten Lücken sind während der Implementation behebbar. Keine Blocker vorhanden.**
+
+---
+
+## BACKUP & ROLLBACK STRATEGY
+
+### Übergreifende Backup-Prinzipien
+
+**Backup-Typen:**
+
+1. **Database Snapshot:** PostgreSQL pg\_dump vor Schema-Änderungen
+2. **Code Checkpoint:** Git Tag für jeden Phase-Abschluss
+3. **Configuration Backup:** Kubernetes ConfigMaps/Secrets Export
+4. **Data Backup:** Redis RDB Snapshot, SQLite Dateien
+5. **Infrastructure State:** Terraform State (falls verwendet)
+
+**Backup-Locations:**
+
+- **Primary:** `/srv/radiquant2_backups/` (lokales SSD, 1.6TB verfügbar)
+- **Secondary:** S3-compatible Storage (Offsite, verschlüsselt)
+- **Retention:** 30 Tage lokal, 90 Tage offsite, 1 Jahr finale Releases
+
+### Phase-spezifische Backup-Szenarien
+
+**Phase 1: Foundation (Wochen 1-4)**
+
+Pre-Phase Backup:
+
+```bash
+# K8s Cluster State exportieren
+kubectl get all -A -o yaml > backups/phase1_pre/k8s_cluster_state.yaml
+
+# Bestehende Datenbanken sichern
+docker exec morphic_postgres pg_dumpall > backups/phase1_pre/existing_db.sql
+
+# Git Checkpoint
+git tag phase0_baseline && git push origin phase0_baseline
+```
+
+Post-Phase Backup:
+
+```bash
+# PostgreSQL Schema sichern
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  pg_dump -U radiquant2 --schema-only > backups/phase1_post/schema_v1.sql
+
+# Kubernetes Manifests
+kubectl get all -n radiquant2-staging -o yaml > backups/phase1_post/k8s_staging.yaml
+
+# Git Major Milestone
+git tag phase1_foundation_complete && git push origin phase1_foundation_complete
+```
+
+Rollback-Procedure:
+
+```bash
+# Namespace löschen
+kubectl delete namespace radiquant2-staging --cascade=foreground
+
+# Code Rollback
+git checkout phase0_baseline
+```
+
+**Phase 2: Core Backend (Wochen 5-10)**
+
+Incremental Backups (Wöchentlich):
+
+```bash
+WEEK=$1  # 1-6 (Weeks 5-10)
+
+# Database Dump mit Daten
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  pg_dump -U radiquant2 -Fc > backups/phase2_weekly/week_${WEEK}_db.dump
+
+# Git Tag
+git tag phase2_week${WEEK} && git push origin phase2_week${WEEK}
+```
+
+Post-Phase Backup:
+
+```bash
+# Vollständiges DB Backup mit allen Modulen
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  pg_dump -U radiquant2 -Fc > backups/phase2_post/core_backend_complete.dump
+
+# BAT Programs Verification (should be 93)
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  psql -U radiquant2 -c "SELECT COUNT(*) FROM bat_programs" > backups/phase2_post/bat_count.txt
+
+# Git Major Milestone
+git tag phase2_core_backend_complete
+```
+
+Rollback:
+
+```bash
+# Database Restore
+kubectl exec -i -n radiquant2-staging postgres-0 -- \
+  pg_restore -U radiquant2 -d radiquant2 < backups/phase1_post/testdata.dump
+
+# Container Neudeployment
+kubectl rollout undo deployment/api -n radiquant2-staging
+kubectl rollout undo deployment/worker -n radiquant2-staging
+```
+
+**Phase 3: AI/ML Capabilities (Wochen 11-14)**
+
+ML Model Versioning:
+
+```bash
+MODEL_NAME=$1
+VERSION=$2
+
+# Model Artifacts sichern
+kubectl cp radiquant2-staging/worker-0:/app/models/${MODEL_NAME}_${VERSION}.pt \
+  backups/phase3_models/${MODEL_NAME}_${VERSION}.pt
+
+# Training Metadata
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  psql -U radiquant2 -c "COPY (SELECT * FROM ml_model_versions WHERE name='${MODEL_NAME}') TO STDOUT" \
+  > backups/phase3_models/${MODEL_NAME}_${VERSION}_metadata.csv
+```
+
+Post-Phase:
+
+```bash
+# Complete DB mit ML-Daten
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  pg_dump -U radiquant2 -Fc > backups/phase3_post/ml_enabled_db.dump
+
+# Pattern Library Export
+kubectl cp radiquant2-staging/postgres-0:/tmp/pattern_library.csv \
+  backups/phase3_post/pattern_library.csv
+```
+
+**Phase 4-8: Web Portal bis Launch**
+
+Unified Backup Strategy:
+
+```bash
+backup_phase_generic() {
+  PHASE=$1
+  DESCRIPTION=$2
+
+  # Database Snapshot
+  kubectl exec -n radiquant2-staging postgres-0 -- \
+    pg_dump -U radiquant2 -Fc > backups/phase${PHASE}_post/${DESCRIPTION}_db.dump
+
+  # External Integration Configs
+  kubectl get secrets -n radiquant2-staging -l type=integration -o yaml \
+    > backups/phase${PHASE}_post/integration_secrets.yaml
+
+  # Git Tag
+  git tag phase${PHASE}_${DESCRIPTION}_complete
+
+  # Test Results archivieren
+  cp -r test-results/ backups/phase${PHASE}_post/test_results/
+}
+```
+
+### Production Cutover Backup
+
+Pre-Production:
+
+```bash
+# Staging Complete Backup
+kubectl exec -n radiquant2-staging postgres-0 -- \
+  pg_dump -U radiquant2 -Fc > backups/production_cutover/staging_final.dump
+
+# radiquant v1 Daten sichern (Rollback-Option)
+docker exec morphic_postgres pg_dumpall > backups/production_cutover/radiquant_v1_backup.sql
+
+# SSL Certificates
+kubectl get secret -n radiquant2-staging letsencrypt-cert -o yaml \
+  > backups/production_cutover/ssl_certs.yaml
+
+# Git Production Tag
+git tag v1.0.0_production_ready
+```
+
+Post-Production (erste 24h):
+
+```bash
+# Stündliche Backups
+for hour in {1..24}; do
+  sleep 3600
+  kubectl exec -n radiquant2-production postgres-0 -- \
+    pg_dump -U radiquant2 -Fc > backups/production_live/prod_${hour}h.dump
+done
+```
+
+### Automated Backup CronJob (Kubernetes)
+
+```yaml
+# backups/k8s/backup-cronjob.yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: database-backup
+  namespace: radiquant2-production
+spec:
+  schedule: "0 2 * * *"  # Daily at 2 AM
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: pg-backup
+            image: postgres:15-alpine
+            command:
+            - /bin/sh
+            - -c
+            - |
+              TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+              pg_dump -U radiquant2 -h postgres -Fc > /backups/prod_${TIMESTAMP}.dump
+              # Upload to S3
+              aws s3 cp /backups/prod_${TIMESTAMP}.dump s3://radiquant2-backups/
+              # Cleanup (keep 30 days)
+              find /backups -name "prod_*.dump" -mtime +30 -delete
+            env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+            volumeMounts:
+            - name: backup-volume
+              mountPath: /backups
+          volumes:
+          - name: backup-volume
+            persistentVolumeClaim:
+              claimName: backup-pvc
+          restartPolicy: OnFailure
+```
+
+---
+
+## AUTOMATED TESTING FRAMEWORK
+
+### Test-Pyramide für radiquant2
+
+**Coverage-Ziele:**
+
+- Unit Tests: 80% Code Coverage
+- Integration Tests: Alle kritischen User Flows
+- E2E Tests: 10 wichtigste User Journeys
+- API Tests: 100% GraphQL Schema Coverage
+
+### Phase 1: Foundation - Tests
+
+**Unit Tests (pytest):**
+
+```python
+# tests/phase1/test_authentication.py
+class TestAuthentication:
+    def test_password_hashing_bcrypt(self):
+        """Verify bcrypt hashing with cost factor 12"""
+        auth = AuthService()
+        hashed = auth.hash_password("SecurePassword123!")
+        assert hashed.startswith("$2b$12$")
+
+    def test_jwt_token_generation(self):
+        """Verify JWT token generation with RS256"""
+        token = auth.generate_access_token(user_id="123", role="practitioner")
+        payload = auth.verify_token(token)
+        assert payload["user_id"] == "123"
+
+    def test_token_expiration(self):
+        """Verify access token expires after 15 minutes"""
+        # Implementation: Sleep 901 seconds, expect TokenExpiredError
+
+    def test_refresh_token_rotation(self):
+        """Verify refresh token rotation on use"""
+        # Old refresh token should be invalidated after rotation
+```
+
+**Integration Tests:**
+
+```python
+# tests/phase1/test_api_integration.py
+class TestAPIIntegration:
+    @pytest.mark.integration
+    def test_auth_flow_complete(self, client):
+        """Test complete authentication flow"""
+        # 1. Register
+        response = client.post("/api/auth/register", json={...})
+        assert response.status_code == 201
+
+        # 2. Login
+        response = client.post("/api/auth/login", json={...})
+        access_token = response.json()["accessToken"]
+
+        # 3. Access Protected Endpoint
+        response = client.get("/api/me", headers={
+            "Authorization": f"Bearer {access_token}"
+        })
+        assert response.status_code == 200
+
+    @pytest.mark.integration
+    def test_rate_limiting(self, client):
+        """Verify rate limiting works"""
+        for i in range(6):  # Limit is 5
+            response = client.post("/api/auth/login", json={...})
+        assert response.status_code == 429  # Too Many Requests
+```
+
+**Security Tests:**
+
+```python
+# tests/phase1/test_security.py
+class TestSecurity:
+    def test_sql_injection_prevention(self):
+        """Verify SQL injection is prevented"""
+        malicious = "'; DROP TABLE users; --"
+        response = client.post("/api/auth/login", json={"email": malicious})
+        assert db.table_exists("users")  # Table still exists
+
+    def test_xss_prevention(self):
+        """Verify XSS payloads are escaped"""
+        xss = "<script>alert('XSS')</script>"
+        # Payload should be escaped in database
+
+    def test_csrf_protection(self):
+        """Verify CSRF tokens required for state-changing ops"""
+        response = client.post("/api/users/123/delete")  # No CSRF token
+        assert response.status_code == 403
+```
+
+**Performance Tests:**
+
+```python
+# tests/phase1/test_performance.py
+class TestPerformance:
+    @pytest.mark.benchmark
+    def test_api_latency_under_100ms(self, benchmark):
+        """Verify API responds in <100ms (95th percentile)"""
+        result = benchmark(lambda: client.get("/api/health"))
+        assert result.stats.stats.quantiles[2] < 0.1
+
+    @pytest.mark.benchmark
+    def test_concurrent_auth_requests(self):
+        """Test 100 concurrent auth requests"""
+        # 95% success rate minimum
+```
+
+**Smoke Tests:**
+
+```bash
+#!/bin/bash
+# tests/phase1/smoke_test.sh
+
+echo " Phase 1 Smoke Tests"
+
+# Health Endpoint
+curl -f http://localhost:8000/health || exit 1
+
+# Database Connection
+kubectl exec postgres-0 -- pg_isready || exit 1
+
+# Redis Connection
+kubectl exec redis-0 -- redis-cli ping || exit 1
+
+# Authentication Service
+TOKEN=$(curl -s -X POST http://localhost:8000/api/auth/login -d '...' | jq -r '.accessToken')
+[ -n "$TOKEN" ] || exit 1
+
+echo "✅ Phase 1 Smoke Tests PASSED"
+```
+
+### Phase 2: Core Backend - Tests
+
+**Module-Specific Tests:**
+
+```python
+# tests/phase2/test_analysis_engine.py
+class TestAnalysisEngine:
+    def test_nls_analysis_basic(self):
+        """Test NLS analysis with sample data"""
+        result = nls_service.analyze(patient_id="test", data=SAMPLE_NLS_DATA)
+        assert result.status == "completed"
+        assert 0.0 <= result.confidence_score <= 1.0
+
+    @pytest.mark.gpu
+    def test_cupy_acceleration(self):
+        """Verify GPU acceleration with CuPy"""
+        import cupy as cp
+        data = cp.random.random((10000, 10000))
+        start = time.time()
+        result = cp.fft.fft2(data)
+        gpu_time = time.time() - start
+        assert gpu_time < 1.0  # < 1 second on RTX 4000
+
+# tests/phase2/test_bat_programs.py
+class TestBATPrograms:
+    def test_all_93_programs_migrated(self):
+        """Verify all 93 BAT programs migrated from v1"""
+        count = db.query("SELECT COUNT(*) FROM bat_programs").scalar()
+        assert count == 93
+
+    def test_bat_program_execution(self):
+        """Test BAT program execution"""
+        program = db.query("SELECT * FROM bat_programs WHERE name='Bakterien Allgemein'").first()
+        result = execute_bat_program(program_id=program.id, patient_id="test")
+        assert result.status == "completed"
+```
+
+**Integration Tests:**
+
+```python
+# tests/phase2/test_integration.py
+class TestCoreBackendIntegration:
+    @pytest.mark.integration
+    def test_complete_session_flow(self, client):
+        """Test complete session from creation to harmonization"""
+        # 1. Create Patient
+        patient = client.post("/api/patients", json={...}).json()
+
+        # 2. Create Session
+        session = client.post("/api/sessions", json={...}).json()
+
+        # 3. Start Resonance Analysis
+        analysis = client.post(f"/api/sessions/{session['id']}/analyses", json={
+            "analysisType": "NLS"
+        }).json()
+
+        # 4. Wait for completion
+        wait_for_completion(analysis["id"], timeout=60)
+
+        # 5. Get AI Suggestions
+        suggestions = client.post(f"/api/analyses/{analysis['id']}/ai-suggestions").json()
+        assert len(suggestions) > 0
+
+        # 6. Queue Harmonization Job
+        job = client.post("/api/harmonization-jobs", json={...}).json()
+
+        # 7. Verify Job Completion
+        wait_for_job_completion(job["id"], timeout=300)
+        completed_job = client.get(f"/api/harmonization-jobs/{job['id']}").json()
+        assert completed_job["status"] == "COMPLETED"
+```
+
+**Regression Tests (Phase 1 Features):**
+
+```python
+# tests/phase2/test_regression_phase1.py
+class TestPhase1Regression:
+    """Ensure Phase 1 features still work after Phase 2"""
+
+    def test_auth_still_works(self, client):
+        """Regression: Authentication unchanged"""
+        response = client.post("/api/auth/login", json={...})
+        assert response.status_code == 200
+
+    def test_tenant_isolation_still_enforced(self):
+        """Regression: Tenant isolation not broken"""
+        # Verify no data leakage between tenants
+```
+
+### Phase 3-8: Test Summaries
+
+**Phase 3: AI/ML Capabilities**
+
+- test\_pattern\_recognition\_model\_accuracy() → Min 85% accuracy
+- test\_predictive\_analytics\_predictions() → Confidence scores valid
+- test\_ml\_model\_inference\_latency() → <500ms per prediction
+- test\_ollama\_description\_generation() → LLM responses valid
+- test\_gpu\_memory\_management() → No VRAM leaks
+
+**Phase 4: Web Portal (E2E Tests)**
+
+```typescript
+// tests/phase4/e2e/dashboard.spec.ts
+describe('Practitioner Dashboard E2E', () => {
+  it('should display all sessions for today', async () => {
+    await page.goto('https://staging.radiquant2.de/dashboard');
+    const sessions = await page.locator('.session-card').count();
+    expect(sessions).toBeGreaterThan(0);
+  });
+
+  it('should render 3D field visualization', async () => {
+    await page.goto('/session/123/analysis');
+    await page.waitForSelector('canvas[data-testid="3d-field"]');
+    const hasWebGL = await page.evaluate(() => {
+      const canvas = document.querySelector('canvas');
+      return !!canvas.getContext('webgl2');
+    });
+    expect(hasWebGL).toBe(true);
+  });
+});
+```
+
+**Phase 5: Mobile Apps**
+
+```swift
+// tests/phase5/ios/AuthenticationTests.swift
+class AuthenticationTests: XCTestCase {
+    func testBiometricAuth() async throws {
+        let context = LAContext()
+        let canUseBiometrics = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: nil)
+        XCTAssertTrue(canUseBiometrics)
+    }
+
+    func testGraphQLQuery() async throws {
+        let apollo = ApolloClient(url: URL(string: "https://api-staging.radiquant2.de/graphql")!)
+        let result = try await apollo.fetch(query: GetPatientQuery(id: "test-id"))
+        XCTAssertNotNil(result.data)
+    }
+}
+```
+
+**Phase 6: Research Tools**
+
+- test\_statistical\_analysis\_correctness() → Compare with scipy results
+- test\_cohort\_enrollment() → Inclusion/exclusion criteria applied
+- test\_anonymization\_complete() → No PII in research exports
+
+**Phase 7: Integrations**
+
+```python
+def test_fhir_patient_export():
+    """Test FHIR Patient resource export"""
+    patient = db.get_patient("test-id")
+    fhir_resource = fhir_exporter.export_patient(patient)
+    assert fhir_resource["resourceType"] == "Patient"
+    assert fhir_validator.validate(fhir_resource)
+
+def test_ehr_sync_epic():
+    """Test Epic EHR synchronization"""
+    integration = get_integration("epic")
+    sync_result = integration.sync_patients()
+    assert sync_result.status == "success"
+```
+
+**Phase 8: Production Readiness**
+
+```python
+class TestProductionReadiness:
+    @pytest.mark.production_readiness
+    def test_load_handling_1000_users(self):
+        """Test system handles 1000 concurrent users"""
+        # Locust load test
+        stats = run_load_test(RadiquantUser, users=1000, duration=600)
+        assert stats.failure_rate < 0.01  # <1% failure rate
+        assert stats.p95_latency < 2.0  # 95th percentile <2s
+
+    @pytest.mark.security
+    def test_penetration_test_results(self):
+        """Verify no critical vulnerabilities"""
+        pentest_report = load_pentest_results()
+        assert pentest_report.critical_vulns == 0
+```
+
+### CI/CD Integration (GitHub Actions)
+
+```yaml
+# .github/workflows/phase_tests.yml
+name: Phase Completion Tests
+
+on:
+  push:
+    tags:
+      - 'phase*_complete'
+
+jobs:
+  unit-tests:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run Unit Tests
+        run: |
+          pytest tests/ -v --cov=apps --cov=core --cov=services \
+            --cov-report=xml --cov-report=term
+      - name: Upload Coverage
+        uses: codecov/codecov-action@v3
+        with:
+          file: ./coverage.xml
+          fail_ci_if_error: true
+          threshold: 80%  # Minimum 80% coverage
+
+  integration-tests:
+    runs-on: self-hosted
+    needs: unit-tests
+    steps:
+      - name: Run Integration Tests
+        run: pytest tests/ -m integration -v
+
+  security-scan:
+    runs-on: self-hosted
+    steps:
+      - name: Dependency Audit
+        run: |
+          pip-audit
+          npm audit --audit-level=high
+      - name: SAST Scan
+        run: bandit -r apps/ core/ services/
+      - name: Container Scan
+        run: trivy image radiquant2-api:latest
+
+  performance-benchmark:
+    runs-on: self-hosted
+    needs: integration-tests
+    steps:
+      - name: Run Performance Benchmarks
+        run: pytest tests/ -m benchmark --benchmark-only
+      - name: Compare with Baseline
+        run: |
+          python tools/compare_benchmarks.py \
+            current_benchmarks.json \
+            baseline_benchmarks.json \
+            --max-regression=10%
+
+  smoke-tests:
+    runs-on: self-hosted
+    needs: [unit-tests, integration-tests]
+    steps:
+      - name: Deploy to Staging
+        run: kubectl apply -f k8s/staging/
+      - name: Wait for Rollout
+        run: kubectl rollout status deployment/api -n radiquant2-staging
+      - name: Run Smoke Tests
+        run: ./tests/smoke_test_all.sh
+```
+
+---
+
+## PROACTIVE HEALTH MONITORING SYSTEM
+
+### System Architecture: "Quantum Health Observer"
+
+**Philosophy:** Nicht nur auf Fehler reagieren, sondern Probleme vorhersagen und verhindern.
+
+**Komponenten:**
+
+1. **COLLECT** - Prometheus, Loki, Traces
+2. **ANALYZE** - ML Anomaly Detection
+3. **PREDICT** - Forecasting Engine
+4. **LEARN** - Baseline Adaptation
+5. **HEAL** - Auto-Remediation
+6. **NOTIFY** - Intelligent Alerts
+
+### Komponente 1: Datensammlung (100% Coverage)
+
+**Infrastructure Metrics (Prometheus):**
+
+```yaml
+# monitoring/prometheus/scrape_config.yaml
+scrape_configs:
+  - job_name: 'kubernetes-nodes'
+    kubernetes_sd_configs:
+      - role: node
+
+  - job_name: 'radiquant2-api'
+    kubernetes_sd_configs:
+      - role: pod
+        namespaces:
+          names: ['radiquant2-production', 'radiquant2-staging']
+
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres-exporter:9187']
+
+  - job_name: 'gpu'
+    static_configs:
+      - targets: ['dcgm-exporter:9400']  # NVIDIA DCGM
+
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis-exporter:9121']
+
+  - job_name: 'radiquant2-business'
+    static_configs:
+      - targets: ['api:8000']
+    metrics_path: /metrics/business
+```
+
+**Custom Business Metrics:**
+
+```python
+# core/observability/metrics.py
+from prometheus_client import Counter, Histogram, Gauge
+
+# Session Metrics
+sessions_created_total = Counter(
+    'radiquant2_sessions_created_total',
+    'Total sessions created',
+    ['tenant_id', 'practitioner_id']
+)
+
+# Analysis Metrics
+analyses_completed_total = Counter(
+    'radiquant2_analyses_completed_total',
+    'Total analyses completed',
+    ['analysis_type', 'tenant_id']
+)
+
+analysis_duration_seconds = Histogram(
+    'radiquant2_analysis_duration_seconds',
+    'Analysis duration',
+    ['analysis_type'],
+    buckets=[1, 5, 10, 30, 60, 120, 300]
+)
+
+# ML Model Metrics
+ml_prediction_confidence = Histogram(
+    'radiquant2_ml_prediction_confidence',
+    'ML prediction confidence scores',
+    ['model_name'],
+    buckets=[0.5, 0.6, 0.7, 0.8, 0.9, 0.95, 0.99]
+)
+
+ml_model_inference_seconds = Histogram(
+    'radiquant2_ml_inference_seconds',
+    'ML model inference time',
+    ['model_name'],
+    buckets=[0.01, 0.05, 0.1, 0.5, 1.0, 2.0, 5.0]
+)
+
+# GPU Metrics
+gpu_memory_used_bytes = Gauge(
+    'radiquant2_gpu_memory_used_bytes',
+    'GPU memory in use',
+    ['gpu_id']
+)
+
+gpu_utilization_percent = Gauge(
+    'radiquant2_gpu_utilization_percent',
+    'GPU utilization',
+    ['gpu_id']
+)
+
+# Database Metrics
+db_query_duration_seconds = Histogram(
+    'radiquant2_db_query_duration_seconds',
+    'Database query duration',
+    ['query_type', 'table'],
+    buckets=[0.001, 0.01, 0.05, 0.1, 0.5, 1.0, 2.0]
+)
+
+# WebSocket Metrics
+websocket_connections_active = Gauge(
+    'radiquant2_websocket_connections_active',
+    'Active WebSocket connections',
+    ['subscription_type']
+)
+
+# Harmonization Metrics
+harmonization_jobs_queued = Gauge(
+    'radiquant2_harmonization_jobs_queued',
+    'Jobs in queue'
+)
+
+# Health Status (Multi-dimensional)
+component_health_status = Gauge(
+    'radiquant2_component_health_status',
+    'Component health (1=healthy, 0=unhealthy)',
+    ['component', 'subsystem']
+)
+```
+
+**Structured Logging (JSON for Loki):**
+
+```python
+# core/observability/logging.py
+import structlog
+
+structlog.configure(
+    processors=[
+        structlog.contextvars.merge_contextvars,
+        structlog.processors.add_log_level,
+        structlog.processors.TimeStamper(fmt="iso"),
+        structlog.processors.JSONRenderer()  # JSON for Loki
+    ],
+)
+
+logger = structlog.get_logger()
+
+# Usage
+logger.info(
+    "session_created",
+    session_id="abc123",
+    patient_id="patient_456",
+    tenant_id="tenant_A",
+    duration_seconds=45.2,
+    health_status="healthy"
+)
+```
+
+### Komponente 2: ML-Basierte Anomalie-Erkennung
+
+**Baseline Learning (Adaptive Thresholds):**
+
+```python
+# services/health_monitor/baseline_learner.py
+from sklearn.ensemble import IsolationForest
+import numpy as np
+
+class BaselineLearner:
+    """
+    Learns normal behavior patterns and adapts thresholds dynamically.
+    Uses Isolation Forest for unsupervised anomaly detection.
+    """
+
+    def __init__(self):
+        self.models = {}
+        self.baselines = {}
+        self.learning_period_days = 7
+        self.contamination = 0.01  # Expect 1% anomalies
+
+    def learn_baseline(self, metric_name: str):
+        """Learn normal behavior for a metric"""
+        historical_data = self.collect_metrics(metric_name, days=7)
+        X = historical_data.reshape(-1, 1)
+
+        # Train Isolation Forest
+        model = IsolationForest(contamination=self.contamination, n_estimators=100)
+        model.fit(X)
+        self.models[metric_name] = model
+
+        # Calculate statistical baseline
+        self.baselines[metric_name] = {
+            "mean": np.mean(historical_data),
+            "std": np.std(historical_data),
+            "p95": np.percentile(historical_data, 95),
+            "p99": np.percentile(historical_data, 99)
+        }
+
+        logger.info("baseline_learned", metric=metric_name, baseline=self.baselines[metric_name])
+
+    def is_anomaly(self, metric_name: str, value: float) -> Dict:
+        """Detect if current value is anomalous"""
+        model = self.models[metric_name]
+        baseline = self.baselines[metric_name]
+
+        # ML-based detection
+        prediction = model.predict([[value]])[0]
+        anomaly_score = model.score_samples([[value]])[0]
+
+        # Statistical detection (backup)
+        z_score = (value - baseline["mean"]) / baseline["std"]
+        is_statistical_anomaly = abs(z_score) > 3  # 3 sigma rule
+
+        is_anomaly = (prediction == -1) or is_statistical_anomaly
+
+        return {
+            "is_anomaly": is_anomaly,
+            "anomaly_score": float(anomaly_score),
+            "z_score": float(z_score),
+            "value": value,
+            "baseline_mean": baseline["mean"],
+            "deviation_percent": abs((value - baseline["mean"]) / baseline["mean"] * 100)
+        }
+```
+
+**Predictive Anomaly Detection (Time Series Forecasting):**
+
+```python
+# services/health_monitor/predictor.py
+from prophet import Prophet
+import pandas as pd
+
+class MetricPredictor:
+    """
+    Predicts future metric values to enable proactive alerting.
+    Uses Facebook Prophet for time series forecasting.
+    """
+
+    def predict_next_hour(self, metric_name: str) -> pd.DataFrame:
+        """Predict metric values for next hour"""
+        model = self.train_predictor(metric_name)
+        future = model.make_future_dataframe(periods=12, freq='5min')
+        forecast = model.predict(future)
+        return forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail(12)
+
+    def will_exceed_threshold(self, metric_name: str, threshold: float) -> Dict:
+        """Predict if metric will exceed threshold in next hour"""
+        forecast = self.predict_next_hour(metric_name)
+        max_predicted = forecast['yhat'].max()
+        time_of_max = forecast.loc[forecast['yhat'].idxmax(), 'ds']
+
+        return {
+            "will_exceed": max_predicted > threshold,
+            "max_predicted_value": float(max_predicted),
+            "time_of_peak": time_of_max.isoformat(),
+            "minutes_until_peak": int((time_of_max - pd.Timestamp.now()).total_seconds() / 60)
+        }
+```
+
+### Komponente 3: Intelligentes Health-Check System
+
+**Component Health Checks (Hierarchical):**
+
+```python
+# services/health_monitor/health_checker.py
+from enum import Enum
+from dataclasses import dataclass
+import asyncio
+
+class HealthStatus(Enum):
+    HEALTHY = "healthy"
+    DEGRADED = "degraded"
+    UNHEALTHY = "unhealthy"
+    UNKNOWN = "unknown"
+
+@dataclass
+class HealthCheckResult:
+    component: str
+    status: HealthStatus
+    message: str
+    latency_ms: float
+    details: Dict
+    timestamp: datetime
+
+class QuantumHealthChecker:
+    """
+    Comprehensive health checking system.
+    Checks: Infrastructure → Platform → Application → Business Logic
+    """
+
+    async def check_postgres(self) -> HealthCheckResult:
+        """Check PostgreSQL health"""
+        start = time.time()
+        try:
+            # Query + Pool Check
+            result = await db.execute("SELECT 1")
+            pool_size = db.engine.pool.size()
+            pool_available = db.engine.pool.checkedin()
+            pool_utilization = (pool_size - pool_available) / pool_size
+
+            # Replication lag (if replica exists)
+            replication_lag = await db.execute(
+                "SELECT EXTRACT(EPOCH FROM (now() - pg_last_xact_replay_timestamp()))"
+            ).scalar()
+
+            status = HealthStatus.HEALTHY
+            if pool_utilization > 0.9:
+                status = HealthStatus.DEGRADED
+                message = f"Pool highly utilized: {pool_utilization:.0%}"
+            elif replication_lag and replication_lag > 10:
+                status = HealthStatus.DEGRADED
+                message = f"Replication lag: {replication_lag:.1f}s"
+            else:
+                message = "PostgreSQL healthy"
+
+            return HealthCheckResult(
+                component="postgres",
+                status=status,
+                message=message,
+                latency_ms=(time.time() - start) * 1000,
+                details={"pool_utilization_percent": pool_utilization * 100},
+                timestamp=datetime.utcnow()
+            )
+        except Exception as e:
+            return HealthCheckResult(
+                component="postgres",
+                status=HealthStatus.UNHEALTHY,
+                message=f"PostgreSQL check failed: {str(e)}",
+                latency_ms=(time.time() - start) * 1000,
+                details={"error": str(e)},
+                timestamp=datetime.utcnow()
+            )
+
+    async def check_gpu(self) -> HealthCheckResult:
+        """Check GPU health"""
+        start = time.time()
+        try:
+            import pynvml
+            pynvml.nvmlInit()
+
+            handle = pynvml.nvmlDeviceGetHandleByIndex(0)  # RTX 4000
+            utilization = pynvml.nvmlDeviceGetUtilizationRates(handle)
+            memory_info = pynvml.nvmlDeviceGetMemoryInfo(handle)
+            temperature = pynvml.nvmlDeviceGetTemperature(handle, pynvml.NVML_TEMPERATURE_GPU)
+
+            memory_utilization = memory_info.used / memory_info.total
+
+            status = HealthStatus.HEALTHY
+            if temperature > 80:
+                status = HealthStatus.DEGRADED
+                message = f"GPU temperature high: {temperature}°C"
+            elif memory_utilization > 0.95:
+                status = HealthStatus.DEGRADED
+                message = f"GPU VRAM nearly full: {memory_utilization:.0%}"
+            else:
+                message = "GPU healthy"
+
+            pynvml.nvmlShutdown()
+
+            return HealthCheckResult(
+                component="gpu",
+                status=status,
+                message=message,
+                latency_ms=(time.time() - start) * 1000,
+                details={
+                    "gpu_utilization_percent": utilization.gpu,
+                    "memory_utilization_percent": memory_utilization * 100,
+                    "temperature_celsius": temperature
+                },
+                timestamp=datetime.utcnow()
+            )
+        except Exception as e:
+            return HealthCheckResult(
+                component="gpu",
+                status=HealthStatus.UNKNOWN,
+                message=f"GPU check failed: {str(e)}",
+                latency_ms=(time.time() - start) * 1000,
+                details={"error": str(e)},
+                timestamp=datetime.utcnow()
+            )
+
+    async def check_all(self) -> Dict[str, HealthCheckResult]:
+        """Run all health checks in parallel"""
+        results = await asyncio.gather(
+            self.check_postgres(),
+            self.check_redis(),
+            self.check_gpu(),
+            self.check_ollama(),
+            self.check_kubernetes_cluster(),
+            return_exceptions=True
+        )
+        return {r.component: r for r in results if isinstance(r, HealthCheckResult)}
+
+    def get_overall_health(self, results: Dict[str, HealthCheckResult]) -> HealthStatus:
+        """Calculate overall system health"""
+        statuses = [r.status for r in results.values()]
+        if HealthStatus.UNHEALTHY in statuses:
+            return HealthStatus.UNHEALTHY
+        elif HealthStatus.DEGRADED in statuses:
+            return HealthStatus.DEGRADED
+        else:
+            return HealthStatus.HEALTHY
+```
+
+### Komponente 4: Console Output & Dashboards
+
+**Real-time Console Health Monitor:**
+
+```python
+# services/health_monitor/console_monitor.py
+from rich.console import Console
+from rich.table import Table
+from rich.live import Live
+from rich.layout import Layout
+import asyncio
+
+class ConsoleHealthMonitor:
+    """
+    Real-time console health monitoring with rich formatting.
+    Displays: Component status, metrics, alerts, predictions.
+    """
+
+    def __init__(self):
+        self.console = Console()
+        self.health_checker = QuantumHealthChecker()
+        self.baseline_learner = BaselineLearner()
+        self.predictor = MetricPredictor()
+
+    async def run(self):
+        """Run continuous health monitoring in console"""
+        with Live(self.generate_layout(), refresh_per_second=1, console=self.console) as live:
+            while True:
+                # Check all components
+                health_results = await self.health_checker.check_all()
+
+                # Update display
+                layout = self.generate_layout(health_results)
+                live.update(layout)
+
+                # Alert on issues
+                for component, result in health_results.items():
+                    if result.status != HealthStatus.HEALTHY:
+                        self.console.log(f"⚠️  {component}: {result.message}")
+
+                await asyncio.sleep(5)  # Check every 5 seconds
+
+    def generate_layout(self, health_results=None):
+        """Generate rich console layout"""
+        layout = Layout()
+        layout.split_column(
+            Layout(name="header", size=3),
+            Layout(name="main"),
+            Layout(name="footer", size=5)
+        )
+
+        # Header
+        header_table = Table(show_header=False, box=None)
+        header_table.add_row(" QUANTUM HEALTH OBSERVER", style="bold cyan")
+        header_table.add_row(f"Last Update: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        layout["header"].update(header_table)
+
+        # Main: Component Health
+        if health_results:
+            health_table = Table(title="Component Health Status")
+            health_table.add_column("Component", style="cyan")
+            health_table.add_column("Status", style="bold")
+            health_table.add_column("Latency", justify="right")
+            health_table.add_column("Message")
+
+            for component, result in health_results.items():
+                status_emoji = {
+                    HealthStatus.HEALTHY: "✅",
+                    HealthStatus.DEGRADED: "⚠️",
+                    HealthStatus.UNHEALTHY: "❌",
+                    HealthStatus.UNKNOWN: "❓"
+                }[result.status]
+
+                status_color = {
+                    HealthStatus.HEALTHY: "green",
+                    HealthStatus.DEGRADED: "yellow",
+                    HealthStatus.UNHEALTHY: "red",
+                    HealthStatus.UNKNOWN: "dim"
+                }[result.status]
+
+                health_table.add_row(
+                    component.upper(),
+                    f"{status_emoji} {result.status.value}",
+                    f"{result.latency_ms:.1f}ms",
+                    result.message,
+                    style=status_color
+                )
+
+            layout["main"].update(health_table)
+
+        # Footer: System Metrics
+        metrics_table = Table(show_header=False, box=None)
+        metrics_table.add_column("Metric", style="dim")
+        metrics_table.add_column("Value", justify="right")
+
+        # Fetch current metrics from Prometheus
+        metrics = {
+            "Active Sessions": prometheus.query_instant('radiquant2_sessions_active'),
+            "GPU Utilization": f"{prometheus.query_instant('radiquant2_gpu_utilization_percent')}%",
+            "DB Connections": prometheus.query_instant('radiquant2_db_connections_active'),
+            "Queue Length": prometheus.query_instant('radiquant2_harmonization_jobs_queued')
+        }
+
+        for metric, value in metrics.items():
+            metrics_table.add_row(metric, str(value))
+
+        layout["footer"].update(metrics_table)
+
+        return layout
+
+# Run console monitor
+if __name__ == "__main__":
+    monitor = ConsoleHealthMonitor()
+    asyncio.run(monitor.run())
+```
+
+**Grafana Dashboard Configuration:**
+
+```yaml
+# monitoring/grafana/dashboards/quantum_health.json
+{
+  "title": "Quantum Health Observer",
+  "panels": [
+    {
+      "title": "Overall System Health",
+      "type": "stat",
+      "targets": [{
+        "expr": "radiquant2_component_health_status"
+      }],
+      "fieldConfig": {
+        "defaults": {
+          "thresholds": {
+            "steps": [
+              {"value": 0, "color": "red"},
+              {"value": 1, "color": "green"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "title": "API Latency (P95)",
+      "type": "graph",
+      "targets": [{
+        "expr": "histogram_quantile(0.95, rate(radiquant2_api_request_duration_seconds_bucket[5m]))"
+      }]
+    },
+    {
+      "title": "GPU Utilization",
+      "type": "graph",
+      "targets": [{
+        "expr": "radiquant2_gpu_utilization_percent"
+      }]
+    },
+    {
+      "title": "ML Prediction Confidence",
+      "type": "heatmap",
+      "targets": [{
+        "expr": "radiquant2_ml_prediction_confidence"
+      }]
+    },
+    {
+      "title": "Anomaly Detection Alerts",
+      "type": "table",
+      "targets": [{
+        "expr": "ALERTS{alertname=~\".*Anomaly.*\"}"
+      }]
+    }
+  ]
+}
+```
+
+### Komponente 5: Selbstheilung (Auto-Remediation)
+
+**Automatic Healing Actions:**
+
+```python
+# services/health_monitor/auto_healer.py
+class AutoHealer:
+    """
+    Automatic remediation for common issues.
+    """
+
+    async def heal_high_memory_usage(self, component: str):
+        """Restart component if memory usage is critical"""
+        logger.warning("auto_healing", action="restart", component=component, reason="high_memory")
+
+        # Kubernetes: Rolling restart
+        await kubectl_restart_deployment(component)
+
+    async def heal_stuck_queue(self):
+        """Clear stuck jobs from queue"""
+        stuck_jobs = await redis.lrange("harmonization_queue", 0, -1)
+        stuck_jobs = [j for j in stuck_jobs if job_is_stuck(j)]
+
+        for job in stuck_jobs:
+            logger.warning("auto_healing", action="clear_stuck_job", job_id=job["id"])
+            await redis.lrem("harmonization_queue", 0, job)
+            await create_retry_job(job)
+
+    async def heal_database_slow_queries(self):
+        """Terminate long-running queries"""
+        long_queries = await db.execute("""
+            SELECT pid, query, now() - query_start AS duration
+            FROM pg_stat_activity
+            WHERE state = 'active' AND now() - query_start > interval '5 minutes'
+        """).all()
+
+        for query in long_queries:
+            logger.warning("auto_healing", action="terminate_query", pid=query.pid, duration=query.duration)
+            await db.execute(f"SELECT pg_terminate_backend({query.pid})")
+```
+
+### Implementation Location
+
+**Deployment as Sidecar:**
+
+```yaml
+# k8s/health-monitor-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quantum-health-observer
+  namespace: radiquant2-production
+spec:
+  replicas: 1
+  template:
+    spec:
+      containers:
+      - name: health-monitor
+        image: radiquant2-health-monitor:latest
+        env:
+        - name: PROMETHEUS_URL
+          value: "http://prometheus:9090"
+        - name: ENABLE_AUTO_HEALING
+          value: "true"
+        - name: CONSOLE_OUTPUT
+          value: "true"
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        volumeMounts:
+        - name: models
+          mountPath: /app/models/health_monitor
+      volumes:
+      - name: models
+        persistentVolumeClaim:
+          claimName: health-monitor-pvc
+```
+
+---
+
+## Summary & Next Steps
+
+### Project Summary
+
+**radiquant2** is a next-generation radionic platform that combines:
+
+- All 12 core features from radiquant v1 (NLS analysis, harmonization, BAT programs, etc.)
+- Advanced AI/ML capabilities (pattern recognition, predictive analytics, therapy recommendations)
+- Modern multi-platform client access (Next.js web portal, native iOS/Android apps)
+- Comprehensive research tools (statistical analysis, cohort management, longitudinal studies)
+- Healthcare integrations (FHIR/HL7, EHR systems, biofeedback devices)
+
+**Technology Stack:**
+
+- Frontend: Next.js 14+ with shadcn/ui, React Three Fiber, Recharts, Zustand
+- Mobile: Native Swift (iOS) and Kotlin (Android) apps
+- Backend: Python FastAPI with modular monolith architecture
+- API: GraphQL + WebSocket for real-time updates
+- Databases: PostgreSQL 15, Redis, SQLite
+- AI/ML: PyTorch + scikit-learn with GPU acceleration (NVIDIA RTX 4000)
+- Deployment: Docker Compose (dev) + Kubernetes (production)
+- CI/CD: GitHub Actions with self-hosted runner
+- Monitoring: Prometheus + Grafana + Loki
+
+**Security & Compliance:**
+
+- GDPR compliant + HIPAA-like standards
+- Triple-layer encryption (in-transit, at-rest, field-level)
+- Comprehensive audit logging
+- Multi-tenant row-level security
+- Automated backups and disaster recovery
+
+**Deployment:**
+
+- Location: `/srv/radiquant2/` on root3091.ipp-srv.net
+- Monorepo structure with Turborepo
+- Kubernetes namespaces for staging and production
+- Zero-downtime rolling deployments
+- Horizontal auto-scaling
+
+### Implementation Phases (Recommended)
+
+**Phase 1: Foundation (Weeks 1-4)**
+
+1. Setup monorepo structure
+2. Initialize databases and schemas
+3. Implement authentication and authorization
+4. Setup CI/CD pipeline
+5. Deploy development environment
+
+**Phase 2: Core Backend (Weeks 5-10)**
+
+1. Analysis Engine module (NLS, resonance)
+2. Harmonization Service module
+3. Hardware Interface module
+4. Remedy Management module
+5. BAT Programs module
+
+**Phase 3: AI/ML Capabilities (Weeks 11-14)**
+
+1. Pattern Recognition system
+2. Predictive Analytics engine
+3. Automated Diagnosis suggestions
+4. Therapy Protocol recommendations
+
+**Phase 4: Web Portal (Weeks 15-19)**
+
+1. Next.js application setup
+2. Practitioner dashboard
+3. Patient dashboard
+4. 3D visualizations
+5. Session management
+
+**Phase 5: Mobile Apps (Weeks 20-26)**
+
+1. iOS app (Swift + SwiftUI)
+2. Android app (Kotlin + Jetpack Compose)
+3. GraphQL integration
+4. HealthKit/Google Fit integration
+5. Push notifications
+
+**Phase 6: Research Tools (Weeks 27-30)**
+
+1. Analytics engine
+2. Cohort management
+3. Study management
+4. Data export capabilities
+
+**Phase 7: Integrations (Weeks 31-34)**
+
+1. FHIR/HL7 integration
+2. EHR connectors
+3. Biofeedback devices
+4. Third-party health platforms
+
+**Phase 8: Testing & Launch (Weeks 35-40)**
+
+1. Integration testing
+2. Security penetration testing
+3. Performance optimization
+4. Beta testing with practitioners
+5. Production launch
+
+### Success Criteria
+
+**Technical Success:**
+
+- ✅ All 12 core v1 features migrated and functional
+- ✅ All new features (AI/ML, research tools, integrations) operational
+- ✅ <100ms API response time (95th percentile)
+- ✅ 99.9% uptime
+- ✅ Zero data breaches
+- ✅ All security audits passed
+
+**User Success:**
+
+- ✅ Practitioner adoption rate >90%
+- ✅ Patient portal usage >60%
+- ✅ Mobile app usage >40%
+- ✅ User satisfaction score >4.5/5
+- ✅ Reduction in manual data entry >50%
+
+**Business Success:**
+
+- ✅ Support multi-tenant scaling to 100+ practitioners
+- ✅ Handle 1000+ sessions per day
+- ✅ Enable research publications from platform data
+- ✅ Zero compliance violations
+
+### Final Notes
+
+This planning document provides complete specifications for implementing radiquant2 from scratch. Every major architectural decision has been made, every technology chosen, every security consideration addressed.
+
+**What's NOT in this document (intentional):**
+
+- Actual implementation code (that's for the implementation phase)
+- Exact variable names and function signatures
+- Pixel-perfect UI designs (wireframes would be next step)
+- Exact GPU kernel implementations for ML models
+
+**What IS in this document:**
+
+- Complete architecture from database to UI
+- All features specified at outcome level
+- All technology stack decisions with rationale
+- Security and compliance requirements
+- Deployment strategy with commands
+- GraphQL API surface area
+- Success criteria and testing approach
+
+**Implementation is now ready to begin.** A junior developer reading this document would understand exactly what needs to be built, how it should work, and why each decision was made.
